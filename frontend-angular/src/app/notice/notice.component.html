@@ -1,0 +1,9 @@
+<h1>Notices</h1>
+
+<button *ngIf="showAdd">Add Notice</button>
+
+<div>
+    <ol>
+        <li *ngFor="let notice of notices"><a href="ha">{{notice.title}}</a></li>
+    </ol>
+</div>
