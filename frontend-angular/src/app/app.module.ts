@@ -9,6 +9,7 @@ import { NoticeComponent } from './notice/notice.component';
 import { NoticeDetailsComponent } from './notice/notice-details/notice-details.component';
 import { NoticeAddComponent } from './notice/notice-add/notice-add.component';
 import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
