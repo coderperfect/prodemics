@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
@@ -7,13 +8,26 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  private loginCred = {
+    username: "",
+    password: ""
+  };
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form);
+    this.loginCred.username = form.value.username;
+    this.loginCred.password = form.value.password;
+
+    this.httpClient.post("https://spring/login", null, {
+      headers: {
+        "Authorization": "Basic"
+      }
+    }).subscribe(response => {
+      console.log(response);
+    });
   }
 }
