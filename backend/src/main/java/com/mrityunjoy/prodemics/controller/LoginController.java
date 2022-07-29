@@ -1,12 +1,18 @@
 package com.mrityunjoy.prodemics.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class LoginController {
-	@PostMapping("/login")
-	public String login(String username, String password) {
-		return "haa";
+	@GetMapping("/login")
+	public String login(HttpServletResponse response) {
+		log.info("Sending JWT token");
+		return response.getHeader("jwt");
 	}
 }

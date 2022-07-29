@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import com.mrityunjoy.prodemics.filter.JWTTokenGeneratorFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -12,7 +15,8 @@ public class SecurityConfig {
 		http.authorizeRequests(authZ -> authZ
 				.mvcMatchers("/login").authenticated()
 				.anyRequest().authenticated()
-		).httpBasic();
+		).addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+		.httpBasic();
 
 		return http.build();
 	}
