@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Buffer } from 'buffer';
+import { environment } from 'src/environments/environment';
+
+interface LoginResponse {
+  token: string
+}
 
 @Component({
   selector: 'app-login',
@@ -22,12 +28,12 @@ export class LoginComponent implements OnInit {
     this.loginCred.username = form.value.username;
     this.loginCred.password = form.value.password;
 
-    this.httpClient.post("https://localhost/login", null, {
+    this.httpClient.get<LoginResponse>(`${environment.HOST_URL}/login`, {
       headers: {
-        "Authorization": "Basic "
+        "Authorization": "Basic " + Buffer.from(`${this.loginCred.username}:${this.loginCred.password}`, 'utf-8').toString('base64')
       }
     }).subscribe(response => {
-      console.log(response);
+      localStorage.setItem("token", response.token)
     });
   }
 }

@@ -1,5 +1,15 @@
+Docker Compose:
+> docker-compose up -d
+> docker-compose down --rmi all
+
 Frontend Angular:
 Build -
 docker build -f ./frontend-angular/Dockerfile.prod -t coderperfect/prodemics-frontend-angular ./frontend-angular
 Run -
 docker run -p 80:80 --name prodemics-frontend-angular --rm -d coderperfect/prodemics-frontend-angular
+
+Backend Spring:
+Build -
+docker build -f ./backend-spring/Dockerfile.prod -t coderperfect/prodemics-backend-spring ./backend-spring
+Run -
+docker run -p 8080:8080 --name prodemics-backend-spring --rm -d coderperfect/prodemics-backend-spring
