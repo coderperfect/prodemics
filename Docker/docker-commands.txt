@@ -1,0 +1,5 @@
+Frontend Angular:
+Build -
+docker build -f ./frontend-angular/Dockerfile.prod -t coderperfect/prodemics-frontend-angular ./frontend-angular
+Run -
+docker run -p 80:80 --name prodemics-frontend-angular --rm -d coderperfect/prodemics-frontend-angular

@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
     this.loginCred.username = form.value.username;
     this.loginCred.password = form.value.password;
 
-    this.httpClient.post("https://spring/login", null, {
+    this.httpClient.post("https://localhost/login", null, {
       headers: {
-        "Authorization": "Basic"
+        "Authorization": "Basic "
       }
     }).subscribe(response => {
       console.log(response);
