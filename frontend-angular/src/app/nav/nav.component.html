@@ -1,2 +1,16 @@
-<a routerLink="/login">Login</a>
-<a routerLink="">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Prodemics</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown"
+            aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul ngbNav [activeId]="route.url | async" class="nav-pills">
+                <li [ngbNavItem]="link.url" *ngFor="let link of links">
+                    <a ngbNavLink [routerLink]="link.url">{{ link.title }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

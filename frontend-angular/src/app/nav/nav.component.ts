@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  links = [
+    { title: 'Home', url: '/' },
+    { title: 'Login', url: '/login' }
+  ];
+
+  constructor(public route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }

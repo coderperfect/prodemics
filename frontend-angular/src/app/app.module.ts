@@ -11,6 +11,7 @@ import { NoticeComponent } from './notice/notice.component';
 import { NoticeDetailsComponent } from './notice/notice-details/notice-details.component';
 import { NoticeAddComponent } from './notice/notice-add/notice-add.component';
 import { HomeComponent } from './home/home.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
