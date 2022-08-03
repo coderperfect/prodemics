@@ -21,16 +21,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NoticeComponent,
     NoticeDetailsComponent,
     NoticeAddComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

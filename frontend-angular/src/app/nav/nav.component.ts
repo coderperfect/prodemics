@@ -4,18 +4,15 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
-
   links = [
     { title: 'Home', url: '' },
-    { title: 'Login', url: 'login' }
+    { title: 'Login', url: 'login' },
   ];
 
-  constructor(public route: ActivatedRoute) { }
+  constructor(public route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
