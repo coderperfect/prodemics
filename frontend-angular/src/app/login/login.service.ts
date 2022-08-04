@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Buffer } from 'buffer';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 
@@ -20,7 +20,7 @@ export class LoginService {
   constructor(private httpClient: HttpClient) {}
 
   login(username: string, password: string) {
-    this.httpClient
+    return this.httpClient
       .get<LoginResponse>(`${environment.HOST_URL}/login`, {
         headers: {
           Authorization:
@@ -28,10 +28,12 @@ export class LoginService {
             Buffer.from(`${username}:${password}`, 'utf-8').toString('base64'),
         },
       })
-      .subscribe((response) => {
-        localStorage.setItem('token', response.token);
-        const user: User = { username: username };
-        this.loggedInUser.next(user);
-      });
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('token', response.token);
+          const user: User = { username: username };
+          this.loggedInUser.next(user);
+        })
+      );
   }
 }

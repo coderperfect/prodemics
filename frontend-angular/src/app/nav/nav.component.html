@@ -7,10 +7,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavLightDropdown">
             <ul ngbNav [activeId]="route.url | async" class="nav-pills">
-                <li [ngbNavItem]="link.url" *ngFor="let link of links">
-                    <a ngbNavLink [routerLink]="link.url">{{ link.title }}</a>
+                <li ngbNavItem='' *ngIf="isAuth">
+                    <a ngbNavLink routerLink="">Home</a>
+                </li>
+                <li ngbNavItem='login' *ngIf="!isAuth">
+                    <a ngbNavLink routerLink="login">Login</a>
                 </li>
             </ul>
+            <button class="btn btn-link text-decoration-none" (click)="onLogout()" *ngIf="isAuth">Logout</button>
         </div>
     </div>
 </nav>
