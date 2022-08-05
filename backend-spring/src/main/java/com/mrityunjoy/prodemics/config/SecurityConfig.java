@@ -24,7 +24,7 @@ public class SecurityConfig {
 		.and().csrf().disable()
 		.authorizeRequests(authZ -> authZ
 				.mvcMatchers("/login").authenticated()
-				.mvcMatchers("/student").authenticated()
+				.mvcMatchers("/notice").authenticated()
 				.anyRequest().authenticated()
 		).addFilterBefore(new JwtTokenValidationFilter(), BasicAuthenticationFilter.class)
 		.addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)

@@ -18,10 +18,10 @@ public class LoginController {
 	@GetMapping()
 	public ResponseEntity<TokenResponse> login(HttpServletResponse response) {
 		log.info("Sending JWT token");
-		
+
 		return ResponseEntity.ok(new TokenResponse(response.getHeader("jwt")));
 	}
-	
+
 	@AllArgsConstructor
 	@Getter
 	private class TokenResponse {
