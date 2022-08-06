@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  UrlSegment,
+} from '@angular/router';
+import { filter, map, Observable, Subscription } from 'rxjs';
 import { LoginService } from '../login/login.service';
 
 @Component({
@@ -11,6 +16,7 @@ import { LoginService } from '../login/login.service';
 export class NavComponent implements OnInit, OnDestroy {
   public isAuth = false;
   private loggedInUserSub = new Subscription();
+  public currentNavItemId = '';
 
   constructor(
     public route: ActivatedRoute,
@@ -24,6 +30,27 @@ export class NavComponent implements OnInit, OnDestroy {
         this.isAuth = !!loggedInUser.username;
       }
     );
+
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => this.route),
+        map((route) => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        map((route) => route.url)
+      )
+      .subscribe((url) =>
+        url.subscribe((curentUrl) => {
+          this.currentNavItemId = curentUrl.toString();
+          // As '' is not a supported ngbnNav activeId
+          if(this.currentNavItemId === '')
+            this.currentNavItemId = 'home';
+        })
+      );
   }
 
   ngOnDestroy(): void {
@@ -31,7 +58,9 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
+    localStorage.removeItem('token');
+    this.loginService.loggedInUser.next({ username: '', authorities: '' });
+
     this.router.navigate(['/login']);
-    this.loginService.loggedInUser.next({ username: '' });
   }
 }

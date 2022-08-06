@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 interface Notice {
+    id: number,
     title: string,
     description: string,
     createdAt: string

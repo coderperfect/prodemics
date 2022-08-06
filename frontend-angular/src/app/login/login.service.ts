@@ -4,20 +4,39 @@ import { Buffer } from 'buffer';
 import { BehaviorSubject, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
+import { decodeToken, isTokenValid } from '../util/token';
 
 interface LoginResponse {
   token: string;
 }
 
 interface User {
-  username: string;
+  username: string | number;
+  authorities: string | number;
 }
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
-  public loggedInUser = new BehaviorSubject<User>({ username: '' });
+  public loggedInUser = new BehaviorSubject<User>({
+    username: '',
+    authorities: '',
+  });
+  private decodedToken: { [prop: string]: string | number } = {};
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    if (
+      localStorage.getItem('token') !== null &&
+      isTokenValid(localStorage.getItem('token')!)
+    ) {
+      this.decodedToken = decodeToken(localStorage.getItem('token')!);
+
+      const user: User = {
+        username: this.decodedToken['username'],
+        authorities: this.decodedToken['authorities'],
+      };
+      this.loggedInUser.next(user);
+    }
+  }
 
   login(username: string, password: string) {
     return this.httpClient
@@ -31,7 +50,11 @@ export class LoginService {
       .pipe(
         tap((response) => {
           localStorage.setItem('token', response.token);
-          const user: User = { username: username };
+          this.decodedToken = decodeToken(response.token);
+          const user: User = {
+            username: this.decodedToken['username'],
+            authorities: this.decodedToken['authorities'],
+          };
           this.loggedInUser.next(user);
         })
       );

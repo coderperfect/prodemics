@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -17,15 +19,17 @@ import com.mrityunjoy.prodemics.filter.JwtTokenValidationFilter;
 
 @Configuration
 public class SecurityConfig {
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().cors().configurationSource(corsConfigurationSource())
 		.and().csrf().disable()
-		.authorizeRequests(authZ -> authZ
+		.headers().frameOptions().sameOrigin()
+		.and().authorizeRequests(authZ -> authZ
 				.mvcMatchers("/login").authenticated()
 				.mvcMatchers("/notice").authenticated()
-				.anyRequest().authenticated()
+				.mvcMatchers("/h2-console/**").permitAll()
 		).addFilterBefore(new JwtTokenValidationFilter(), BasicAuthenticationFilter.class)
 		.addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)
 		.httpBasic();
@@ -41,5 +45,10 @@ public class SecurityConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfig);
 		return source;
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

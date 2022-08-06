@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Notice {
+	private int id;
 	private String title;
 	private String description;
 	private LocalDate createdAt;

@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { LoginService } from '../login/login.service';
 import { NoticeService } from './notice.service';
 
 interface Notice {
+  id: number,
   title: string;
   description: string;
   createdAt: string;
@@ -22,13 +24,14 @@ export class NoticeComponent implements OnInit, OnDestroy {
 
   constructor(
     private loginService: LoginService,
-    private noticeService: NoticeService
+    private noticeService: NoticeService,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
     this.loggedInUserSub = this.loginService.loggedInUser.subscribe(
       (loggedInUser) => {
-        this.showAdd = !!loggedInUser.username;
+        this.showAdd = !!loggedInUser.authorities.toString().includes('admin');
       }
     );
 
