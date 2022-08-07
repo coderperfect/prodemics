@@ -31,6 +31,10 @@ export class NavComponent implements OnInit, OnDestroy {
       }
     );
 
+    // For url we have to wait for NavigationEnd event and then only can subscribe to ActivatedRoute url
+    // That's why we need Router in addition to ActivatedRoute. For fragment however ActivatedRoute
+    // is enough as there is no router event there we are in the same route.
+    // The while loop is to get only the last part of the url.
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),

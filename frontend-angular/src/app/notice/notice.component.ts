@@ -43,4 +43,8 @@ export class NoticeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.loggedInUserSub.unsubscribe();
   }
+
+  onNoticeSummaryClick(event: {id: number}) {
+    this.router.navigate([`/notice/${event.id}`]);
+  }
 }

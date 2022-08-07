@@ -10,11 +10,7 @@
         </div>
         <div class="row">
             <div class="col justify-content-center" style="text-align: left;">
-                <div>
-                    <div class="card mb-3 mx-auto" style="width:60%;" *ngFor="let notice of notices">
-                        <a class="card-body text-decoration-none" [routerLink]="notice.id.toString()">{{notice.title}}</a>
-                    </div>
-                </div>
+                <app-notice-summary [notice]="notice" (noticeClick)="onNoticeSummaryClick($event)" *ngFor="let notice of notices"></app-notice-summary>
             </div>
         </div>
     </div>

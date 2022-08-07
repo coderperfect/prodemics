@@ -13,6 +13,7 @@ import { NoticeAddComponent } from './notice/notice-add/notice-add.component';
 import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthInterceptor } from './login/auth-interceptor.service';
+import { NoticeSummaryComponent } from './notice/notice-summary/notice-summary.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AuthInterceptor } from './login/auth-interceptor.service';
     NoticeDetailsComponent,
     NoticeAddComponent,
     HomeComponent,
+    NoticeSummaryComponent,
   ],
   imports: [
     BrowserModule,
