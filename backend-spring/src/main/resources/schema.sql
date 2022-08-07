@@ -13,3 +13,11 @@ CREATE TABLE IF NOT EXISTS `end_user` (
 	PRIMARY KEY(`username`),
 	FOREIGN KEY(`role_id`) REFERENCES role(`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `notice` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`title` varchar(200) NOT NULL,
+	`description` varchar(1000) NOT NULL,
+	`created_at` date NOT NULL,
+	PRIMARY KEY(`id`)
+);

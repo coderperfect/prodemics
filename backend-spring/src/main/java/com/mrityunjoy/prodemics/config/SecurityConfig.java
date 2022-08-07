@@ -28,7 +28,8 @@ public class SecurityConfig {
 		.headers().frameOptions().sameOrigin()
 		.and().authorizeRequests(authZ -> authZ
 				.mvcMatchers("/login").authenticated()
-				.mvcMatchers("/notice").authenticated()
+				.mvcMatchers("/notice").hasAnyAuthority("admin", "student")
+				.mvcMatchers("/admin/**").hasAnyAuthority("admin")
 				.mvcMatchers("/h2-console/**").permitAll()
 		).addFilterBefore(new JwtTokenValidationFilter(), BasicAuthenticationFilter.class)
 		.addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)

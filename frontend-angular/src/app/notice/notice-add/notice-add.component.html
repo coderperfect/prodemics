@@ -1,1 +1,33 @@
-<p>notice-add works!</p>
+<div class="container mt-3">
+    <div class="row justify-content-md-center">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="col-6">
+            <ngb-alert type="danger" *ngIf="isError" (closed)="isError = false">Something went wrong!</ngb-alert>
+            <ngb-alert type="success" *ngIf="isAdded" (closed)="isAdded = false">Notice Added</ngb-alert>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" ngModel name="title" class="form-control" required #title="ngModel"/>
+                <span class="help-block" *ngIf="!title.valid && title.touched"> Please enter a title </span>
+            </div>
+            <div class="mb-3">
+                <label for="createdAt" class="form-label">Notice Date:</label>
+                <input type="text" ngModel name="createdAt" class="form-control" required ngbDatepicker #d="ngbDatepicker"
+                    (click)="d.toggle()" #createdAt="ngModel" />
+                <span class="help-block" *ngIf="!createdAt.valid && createdAt.touched"> Please select/enter date </span>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea ngModel name="description" class="form-control" rows="5" required #description="ngModel"></textarea>
+                <span class="help-block" *ngIf="!description.value && description.touched"> Please enter description </span>
+            </div>
+            <div class="text-center" *ngIf="!isSubmitting">
+                <button type="submit" class="btn btn-primary" [disabled]="!f.valid || !f.touched">Add</button>
+            </div>
+            <div class="text-center" *ngIf="isSubmitting">
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Adding
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

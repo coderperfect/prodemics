@@ -17,4 +17,8 @@ export class NoticeService {
   getNotice() {
     return this.httpClient.get<Notice[]>(`${environment.HOST_URL}/notice/list`);
   }
+
+  addNotice(title: string, description: string, createdAt: string) {
+    return this.httpClient.post<Notice>(`${environment.HOST_URL}/admin/notice/add`, {title, description, createdAt});
+  }
 }
