@@ -3,9 +3,9 @@
 An Online School System
 
 
-## Front end deployment using Github Pages
+## Frontend deployment using Github Pages
 
-Instead of going with a separate repo for each front end apps, this repo with different branches for the build artifacts at the root level approach is followed. For instance Angular app branch is <a href="https://github.com/coderperfect/prodemics/tree/ghpage">ghpage</a> with it's own gitignore file for local only files to be ignored.
+Instead of going with a separate repo for each frontend apps, this repo with different branches for the build artifacts at the root level approach is followed as anyway at a time single frontend app will remain deployed. For instance Angular app branch is <a href="https://github.com/coderperfect/prodemics/tree/ghpage">ghpage</a> with it's own gitignore file for local only files to be ignored.
 
 
 ## Heroku Maven Plugin
