@@ -1,8 +1,15 @@
 import * as React from "react";
+import {useNavigate} from 'react-router-dom';
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const noticeClickHandler = () => {
+    navigate('/notice');
+  }
+
   return (
     <Box
       sx={{
@@ -21,8 +28,10 @@ const Home = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          textAlign: "center",
           cursor: 'pointer'
         }}
+        onClick={noticeClickHandler}
       >
         View Notices
       </Paper>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,10 +13,15 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
-const pages = ["Home", "Notice"];
+const pages = [
+  { title: "Home", link: "/" },
+  { title: "Notice", link: "/notice" },
+];
 const settings = ["Logout"];
 
 const NavBar = () => {
+  const location = useLocation();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -41,8 +47,8 @@ const NavBar = () => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={NavLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -86,8 +92,19 @@ const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                  key={page.title}
+                  onClick={handleCloseNavMenu}
+                  selected={location.pathname === page.link}
+                >
+                  <Typography
+                    textAlign="center"
+                    component={NavLink}
+                    to={page.link}
+                    sx={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    {page.title}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -95,8 +112,8 @@ const NavBar = () => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={NavLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -113,11 +130,13 @@ const NavBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.title}
                 onClick={handleCloseNavMenu}
+                component={NavLink}
+                to={page.link}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {page.title}
               </Button>
             ))}
           </Box>
@@ -125,7 +144,9 @@ const NavBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircleOutlinedIcon sx={{ fontSize: "2.5rem", color: 'white' }} />
+                <AccountCircleOutlinedIcon
+                  sx={{ fontSize: "2.5rem", color: "white" }}
+                />
               </IconButton>
             </Tooltip>
             <Menu
