@@ -14,12 +14,16 @@ import { useState } from "react";
 const NoticeAdd = () => {
   const [isAdding, setAdding] = useState(false);
   const [isAdded, setAdded] = useState(false);
+  const [isError, setError] = useState(false);
 
   const [titleInput, setTitleInput] = useState("");
   const [createdAtInput, setCreatedAtInput] = useState(
     new Date().toISOString().split("T")[0]
   );
   const [descriptionInput, setDescriptionInput] = useState("");
+
+  const [titleInputTouched, setTitleInputTouched] = useState(false);
+  const [descriptionInputTouched, setDescriptionInputTouched] = useState(false);
 
   const onChangeHandler = (event) => {
     switch (event.target.id) {
@@ -42,6 +46,7 @@ const NoticeAdd = () => {
 
     setAdding(true);
     setAdded(false);
+    setError(false);
 
     const enteredTitle = titleInput;
     const enteredCreatedAt = createdAtInput;
@@ -53,20 +58,27 @@ const NoticeAdd = () => {
       description: enteredDescription,
     };
 
-    fetch("https://prodemics.herokuapp.com/admin/notice/add", {
+    fetch(`${process.env.REACT_APP_HOST_URL}/admin/notice/add`, {
       method: "POST",
       headers: {
         Authorization: localStorage.getItem("token"),
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(notice),
     }).then((response) => {
+      if (!response.ok) {
+        setError(true);
+        setAdding(false);
+        return;
+      }
       response.json().then((responseBody) => {
         if (!!responseBody) {
           setAdded(true);
           setTitleInput("");
           setCreatedAtInput(new Date().toISOString().split("T")[0]);
           setDescriptionInput("");
+          setTitleInputTouched(false);
+          setDescriptionInputTouched(false);
         }
         setAdding(false);
       });
@@ -90,6 +102,9 @@ const NoticeAdd = () => {
                 label="Title"
                 variant="outlined"
                 onChange={onChangeHandler}
+                onBlur={() => !titleInputTouched && setTitleInputTouched(true)}
+                error={titleInputTouched && !titleInput}
+                helperText={(titleInputTouched && !titleInput) ? 'Please enter title' : null}
               />
             </FormControl>
             <FormControl sx={{ marginBottom: "1rem", width: "90%" }}>
@@ -100,6 +115,8 @@ const NoticeAdd = () => {
                 label="Date"
                 variant="outlined"
                 onChange={onChangeHandler}
+                error={!createdAtInput}
+                helperText={!createdAtInput ? 'Please enter/select date' : null}
               />
             </FormControl>
             <FormControl sx={{ marginBottom: "1rem", width: "90%" }}>
@@ -112,6 +129,11 @@ const NoticeAdd = () => {
                 label="Description"
                 variant="outlined"
                 onChange={onChangeHandler}
+                onBlur={() =>
+                  !descriptionInputTouched && setDescriptionInputTouched(true)
+                }
+                error={descriptionInputTouched && !descriptionInput}
+                helperText={(descriptionInputTouched && !descriptionInput) ? 'Please enter description' : null}
               />
             </FormControl>
             {isAdding && (
@@ -120,34 +142,54 @@ const NoticeAdd = () => {
                   size={15}
                   color="inherit"
                   sx={{ marginRight: "0.5rem" }}
-                />{" "}
+                />
                 Adding
               </Button>
             )}
             {!isAdding && (
-              <Button type="submit" variant="contained">
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={!titleInput || !createdAtInput || !descriptionInput}
+              >
                 Add
               </Button>
             )}
           </Box>
         </Grid>
       </Grid>
-      {isAdded && 
-      <Snackbar
-      open={true}
-      autoHideDuration={6000}
-      onClose={() => setAdded(false)}
-    >
-      <Alert
-        onClose={() => setAdded(false)}
-        variant="filled"
-        severity="success"
-        sx={{ width: "100%" }}
-      >
-        Notice added successfully
-      </Alert>
-    </Snackbar>
-      }
+      {isAdded && (
+        <Snackbar
+          open={true}
+          autoHideDuration={6000}
+          onClose={() => setAdded(false)}
+        >
+          <Alert
+            onClose={() => setAdded(false)}
+            variant="filled"
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Notice added successfully
+          </Alert>
+        </Snackbar>
+      )}
+      {isError && (
+        <Snackbar
+          open={true}
+          autoHideDuration={6000}
+          onClose={() => setError(false)}
+        >
+          <Alert
+            onClose={() => setError(false)}
+            variant="filled"
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            Something went wrong
+          </Alert>
+        </Snackbar>
+      )}
     </Container>
   );
 };

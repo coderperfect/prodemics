@@ -1,5 +1,6 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -16,19 +17,35 @@ const Login = () => {
   const authContext = useContext(AuthContext);
 
   const [isLoggingIn, setLoggingIn] = useState(false);
+  const [isError, setError] = useState(false);
+  const [usernameInput, setUsernameInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [usernameInputTouched, setUsernameInputTouched] = useState(false);
+  const [passwordInputTouched, setPasswordInputTouched] = useState(false);
 
-  const usernameInputRef = useRef();
-  const passwordInputRef = useRef();
+  const onChangeHandler = (event) => {
+    switch (event.target.id) {
+      case "username":
+        setUsernameInput(event.target.value);
+        break;
+      case "password":
+        setPasswordInput(event.target.value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const loginHandler = (event) => {
     event.preventDefault();
 
     setLoggingIn(true);
+    setError(false);
 
-    const enteredUsername = usernameInputRef.current.value;
-    const eneteredPassword = passwordInputRef.current.value;
+    const enteredUsername = usernameInput;
+    const eneteredPassword = passwordInput;
 
-    fetch("https://prodemics.herokuapp.com/login", {
+    fetch(`${process.env.REACT_APP_HOST_URL}/login`, {
       method: "GET",
       headers: {
         Authorization:
@@ -39,6 +56,11 @@ const Login = () => {
           ).toString("base64"),
       },
     }).then((response) => {
+      if (!response.ok) {
+        setLoggingIn(false);
+        setError(true);
+        return;
+      }
       response.json().then((responseBody) => {
         localStorage.setItem("token", responseBody.token);
         const decodedToken = decodeToken(responseBody.token);
@@ -62,13 +84,35 @@ const Login = () => {
             sx={{ textAlign: "center" }}
             onSubmit={loginHandler}
           >
+            {isError && (
+              <Alert
+                severity="error"
+                sx={{
+                  marginBottom: "1rem",
+                  marginLeft: "1.1rem",
+                  width: "82%",
+                }}
+              >
+                Username/Password is incorrect
+              </Alert>
+            )}
             <FormControl sx={{ marginBottom: "1rem", width: "90%" }}>
               <TextField
                 id="username"
                 type="text"
                 label="Username"
                 variant="outlined"
-                inputRef={usernameInputRef}
+                value={usernameInput}
+                onChange={onChangeHandler}
+                onBlur={() =>
+                  !usernameInputTouched && setUsernameInputTouched(true)
+                }
+                error={usernameInputTouched && !usernameInput}
+                helperText={
+                  usernameInputTouched && !usernameInput
+                    ? "Please enter username"
+                    : null
+                }
               />
             </FormControl>
             <FormControl sx={{ marginBottom: "1rem", width: "90%" }}>
@@ -77,16 +121,35 @@ const Login = () => {
                 type="password"
                 label="Password"
                 variant="outlined"
-                inputRef={passwordInputRef}
+                value={passwordInput}
+                onChange={onChangeHandler}
+                onBlur={() =>
+                  !passwordInputTouched && setPasswordInputTouched(true)
+                }
+                error={passwordInputTouched && !passwordInput}
+                helperText={
+                  passwordInputTouched && !passwordInput
+                    ? "Please enter password"
+                    : null
+                }
               />
             </FormControl>
             {isLoggingIn && (
               <Button type="submit" variant="contained" disabled>
-                <CircularProgress size={15} color="inherit" sx={{marginRight: '0.5rem'}} /> Loging In
+                <CircularProgress
+                  size={15}
+                  color="inherit"
+                  sx={{ marginRight: "0.5rem" }}
+                />{" "}
+                Loging In
               </Button>
             )}
             {!isLoggingIn && (
-              <Button type="submit" variant="contained">
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={!usernameInput || !passwordInput}
+              >
                 Login
               </Button>
             )}

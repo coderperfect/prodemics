@@ -12,7 +12,7 @@ const Notice = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://prodemics.herokuapp.com/notice/list", {
+    fetch(`${process.env.REACT_APP_HOST_URL}/notice/list`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
