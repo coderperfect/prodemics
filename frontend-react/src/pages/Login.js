@@ -1,7 +1,8 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   FormControl,
   Grid,
@@ -14,11 +15,15 @@ import { decodeToken } from "../util/token";
 const Login = () => {
   const authContext = useContext(AuthContext);
 
+  const [isLoggingIn, setLoggingIn] = useState(false);
+
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
 
   const loginHandler = (event) => {
     event.preventDefault();
+
+    setLoggingIn(true);
 
     const enteredUsername = usernameInputRef.current.value;
     const eneteredPassword = passwordInputRef.current.value;
@@ -43,6 +48,7 @@ const Login = () => {
         };
 
         authContext.setUser(user);
+        setLoggingIn(false);
       });
     });
   };
@@ -74,9 +80,16 @@ const Login = () => {
                 inputRef={passwordInputRef}
               />
             </FormControl>
-            <Button type="submit" variant="contained">
-              Login
-            </Button>
+            {isLoggingIn && (
+              <Button type="submit" variant="contained" disabled>
+                <CircularProgress size={15} color="inherit" sx={{marginRight: '0.5rem'}} /> Loging In
+              </Button>
+            )}
+            {!isLoggingIn && (
+              <Button type="submit" variant="contained">
+                Login
+              </Button>
+            )}
           </Box>
         </Grid>
       </Grid>

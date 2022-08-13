@@ -8,7 +8,10 @@ const NoticeSummary = (props) => {
       xs={12}
       sx={{ display: "flex", justifyContent: "center", textAlign: "left" }}
     >
-      <Card sx={{ marginBottom: "1rem", width: "60%", cursor: "pointer" }}>
+      <Card
+        sx={{ marginBottom: "1rem", width: "60%", cursor: "pointer" }}
+        onClick={() => props.onNoticeClick(props.notice.id)}
+      >
         <CardContent>{props.notice.title}</CardContent>
       </Card>
     </Grid>
