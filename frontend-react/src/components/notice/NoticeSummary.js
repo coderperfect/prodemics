@@ -1,0 +1,18 @@
+import { Card, CardContent, Grid } from "@mui/material";
+import * as React from "react";
+
+const NoticeSummary = (props) => {
+  return (
+    <Grid
+      item
+      xs={12}
+      sx={{ display: "flex", justifyContent: "center", textAlign: "left" }}
+    >
+      <Card sx={{ marginBottom: "1rem", width: "60%", cursor: "pointer" }}>
+        <CardContent>{props.notice.title}</CardContent>
+      </Card>
+    </Grid>
+  );
+};
+
+export default NoticeSummary;
