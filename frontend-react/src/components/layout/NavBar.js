@@ -15,10 +15,10 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import AuthContext from "../../store/auth-context";
 
 const pagesLoggedIn = [
-  { title: "Home", link: "/" },
-  { title: "Notice", link: "/notice" },
+  { title: "Home", link: "" },
+  { title: "Notice", link: "notice" },
 ];
-const pagesLoggedOut = [{ title: "Login", link: "/login" }];
+const pagesLoggedOut = [{ title: "Login", link: "login" }];
 const settings = ["Logout"];
 
 const NavBar = () => {
@@ -62,7 +62,7 @@ const NavBar = () => {
             variant="h6"
             noWrap
             component={NavLink}
-            to="/"
+            to=""
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -127,7 +127,7 @@ const NavBar = () => {
             variant="h5"
             noWrap
             component={NavLink}
-            to="/"
+            to=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },

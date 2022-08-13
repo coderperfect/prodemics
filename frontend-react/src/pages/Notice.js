@@ -24,7 +24,7 @@ const Notice = () => {
   }, []);
 
   const noticeClickHandler = (id) => {
-    navigate(`/notice/${id}`);
+    navigate(`${id}`);
   }
 
   return (
@@ -35,7 +35,7 @@ const Notice = () => {
         </Grid>
         <Grid item xs={6} sx={{ marginTop: "2rem" }}>
           {authContext.user.authorities.includes("admin") && (
-            <Button variant="contained" onClick={() => navigate("/notice/add")}>Add Notice</Button>
+            <Button variant="contained" onClick={() => navigate("add")}>Add Notice</Button>
           )}
         </Grid>
         {notices.map((notice) => (
