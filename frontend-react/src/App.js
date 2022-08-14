@@ -37,45 +37,45 @@ function App() {
       {!isLoading && (
         <Routes>
           <Route
-            path=""
+            path="/"
             element={
-              !!authContext.user.username ? <Home /> : <Navigate to="login" />
+              !!authContext.user.username ? <Home /> : <Navigate to="/login" />
             }
           />
           <Route
-            path="notice"
+            path="/notice"
             element={
               !!authContext.user.username ? (
                 <Notice />
               ) : (
-                <Navigate to="login" />
+                <Navigate to="/login" />
               )
             }
           />
           <Route
-            path="notice/:id"
+            path="/notice/:id"
             element={
               !!authContext.user.username ? (
                 <NoticeDetails />
               ) : (
-                <Navigate to="login" />
+                <Navigate to="/login" />
               )
             }
           />
           <Route
-            path="notice/add"
+            path="/notice/add"
             element={
               !!authContext.user.username ? (
                 <NoticeAdd />
               ) : (
-                <Navigate to="login" />
+                <Navigate to="/login" />
               )
             }
           />
           <Route
-            path="login"
+            path="/login"
             element={
-              !authContext.user.username ? <Login /> : <Navigate to="../" />
+              !authContext.user.username ? <Login /> : <Navigate to="/" />
             }
           />
         </Routes>

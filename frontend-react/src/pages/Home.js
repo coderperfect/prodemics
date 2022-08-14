@@ -7,7 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const noticeClickHandler = () => {
-    navigate('notice');
+    navigate('/notice');
   }
 
   return (
