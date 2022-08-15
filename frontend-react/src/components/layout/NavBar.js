@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -13,6 +14,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import AuthContext from "../../store/auth-context";
+import { authoritiesActions } from "../../store/authorities-slice";
+import { usernameActions } from "../../store/username-slice";
 
 const pagesLoggedIn = [
   { title: "Home", link: "/" },
@@ -25,11 +28,15 @@ const NavBar = () => {
   const authContext = React.useContext(AuthContext);
   const [pages, setPages] = React.useState(pagesLoggedIn);
   const location = useLocation();
+  const authorities = useSelector((state) => state.authorities.authorities);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (!!authContext.user.username) setPages(pagesLoggedIn);
     else setPages(pagesLoggedOut);
-  }, [authContext]);
+
+    console.log(`Authorities from Redux: ${authorities}`);
+  }, [authContext, authorities]);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -50,9 +57,11 @@ const NavBar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    authContext.setUser({username: '', authorities: ''});
-  }
+    localStorage.removeItem("token");
+    authContext.setUser({ username: "", authorities: "" });
+    dispatch(usernameActions.setUsername(""));
+    dispatch(authoritiesActions.setAuthorities(""));
+  };
 
   return (
     <AppBar position="static">
@@ -180,7 +189,13 @@ const NavBar = () => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={() => {handleCloseUserMenu(); handleLogout()}}>
+                  <MenuItem
+                    key={setting}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      handleLogout();
+                    }}
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
