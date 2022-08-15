@@ -39,10 +39,10 @@ Prodemics Backend Spring:
 Build -
 docker build -f ../prodemics-backend-spring/Dockerfile.dev -t coderperfect/prodemics-backend-spring-dev ../prodemics-backend-spring
 Run -
-docker run -p 8080:8080 --name prodemics-backend-spring-dev -v maven-repo:/root/.m2 --rm -d coderperfect/prodemics-backend-spring-dev
+docker run -p 8080:8080 --name prodemics-backend-spring-dev -v maven-repo:/root/.m2 -v ~/projects/prodemics-backend-spring:/app --rm -d coderperfect/prodemics-backend-spring-dev (Note: Can't use ro bind mount because change is propagated by Eclipse through target folder and it is also changed by container Maven for spring-boot:run goal)
 
 Frontend React:
 Build -
 docker build -f ./frontend-react/Dockerfile.dev -t coderperfect/prodemics-frontend-react-dev ./frontend-react
 Run -
-docker run -p 4000:3000 --name prodemics-frontend-react-dev --rm -d coderperfect/prodemics-frontend-react-dev
+docker run -p 4000:3000 --name prodemics-frontend-react-dev -v ~/projects/prodemics/frontend-react/src:/app/src:ro --rm -d coderperfect/prodemics-frontend-react-dev (Note: Need to specify each folders of app as unfortunately Docker doesn't support exclude in bind mounts, the workaround to create anonymous volume for node_modules takes more than 15 min to get copied when I tried with Dell Inspiron 5559 8GB)
