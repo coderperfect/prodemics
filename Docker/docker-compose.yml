@@ -1,17 +1,27 @@
 services:
   backend-spring:
     build:
-      context: ../backend-spring
+      context: ../../prodemics-backend-spring
       dockerfile: Dockerfile.prod
     ports:
       - '8080:8080'
     environment:
       - STARTED_BY=Docker Compose
-  frontend-angular:
+  demo-spring-web-client:
     build:
-      context: ../frontend-angular
+      context: ../../demo-spring-web-client
       dockerfile: Dockerfile.prod
     ports:
-      - '4200:80'
+      - '8081:8081'
+    environment:
+      - HOST_URL=backend-spring:8080
+    depends_on:
+      - backend-spring
+  frontend-react:
+    build:
+      context: ../frontend-react
+      dockerfile: Dockerfile.prod
+    ports:
+      - '4000:80'
     depends_on:
       - backend-spring

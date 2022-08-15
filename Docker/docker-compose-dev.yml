@@ -21,6 +21,8 @@ services:
       - '8081:8081'
     environment:
       - HOST_URL=backend-spring:8080
+    depends_on:
+      - backend-spring
   frontend-react:
     build:
       context: ../frontend-react
