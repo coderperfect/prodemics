@@ -1,6 +1,8 @@
+Production:
+
 Docker Compose:
-> docker-compose up -d
-> docker-compose down --rmi all
+> docker-compose -f ./Docker/docker-compose.yml up -d
+> docker-compose -f ./Docker/docker-compose.yml down --rmi all
 
 Frontend Angular:
 Build -
@@ -8,8 +10,39 @@ docker build -f ./frontend-angular/Dockerfile.prod -t coderperfect/prodemics-fro
 Run -
 docker run -p 4200:80 --name prodemics-frontend-angular --rm -d coderperfect/prodemics-frontend-angular
 
+Frontend React:
+Build -
+docker build -f ./frontend-react/Dockerfile.prod -t coderperfect/prodemics-frontend-react ./frontend-react
+Run -
+docker run -p 4000:80 --name prodemics-frontend-react --rm -d coderperfect/prodemics-frontend-react
+
 Backend Spring:
 Build -
 docker build -f ./backend-spring/Dockerfile.prod -t coderperfect/prodemics-backend-spring ./backend-spring
 Run -
 docker run -p 8080:8080 --name prodemics-backend-spring --rm -d coderperfect/prodemics-backend-spring
+
+Prodemics Backend Spring:
+Build -
+docker build -f ../prodemics-backend-spring/backend-spring/Dockerfile.prod -t coderperfect/prodemics-backend-spring ../prodemics-backend-spring
+Run -
+docker run -p 8080:8080 --name prodemics-backend-spring --rm -d coderperfect/prodemics-backend-spring
+
+
+Development:
+
+Docker Compose:
+> docker-compose -f ./Docker/docker-compose-dev.yml up -d
+> docker-compose -f ./Docker/docker-compose-dev.yml down --rmi all
+
+Prodemics Backend Spring:
+Build -
+docker build -f ../prodemics-backend-spring/Dockerfile.dev -t coderperfect/prodemics-backend-spring-dev ../prodemics-backend-spring
+Run -
+docker run -p 8080:8080 --name prodemics-backend-spring-dev -v maven-repo:/root/.m2 --rm -d coderperfect/prodemics-backend-spring-dev
+
+Frontend React:
+Build -
+docker build -f ./frontend-react/Dockerfile.dev -t coderperfect/prodemics-frontend-react-dev ./frontend-react
+Run -
+docker run -p 4000:3000 --name prodemics-frontend-react-dev --rm -d coderperfect/prodemics-frontend-react-dev

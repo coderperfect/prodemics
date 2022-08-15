@@ -1,0 +1,32 @@
+services:
+  backend-spring:
+    build:
+      context: ../../prodemics-backend-spring
+      dockerfile: Dockerfile.dev
+    volumes:
+      - maven-repo:/root/.m2
+    ports:
+      - '8080:8080'
+    environment:
+      - STARTED_BY=Docker Compose
+  demo-spring-web-client:
+    build:
+      context: ../../demo-spring-web-client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - maven-repo:/root/.m2
+    ports:
+      - '8081:8081'
+    environment:
+      - HOST_URL=backend-spring:8080
+  frontend-react:
+    build:
+      context: ../frontend-react
+      dockerfile: Dockerfile.dev
+    ports:
+      - '4000:3000'
+    depends_on:
+      - backend-spring
+volumes:
+  maven-repo:
+    external: true
