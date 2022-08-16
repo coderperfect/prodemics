@@ -12,12 +12,13 @@ import {
 import { Buffer } from "buffer";
 import AuthContext from "../store/auth-context";
 import { decodeToken } from "../util/token";
+import useHttp from "../hooks/use-http";
 
 const Login = () => {
   const authContext = useContext(AuthContext);
 
-  const [isLoggingIn, setLoggingIn] = useState(false);
-  const [isError, setError] = useState(false);
+  const { isSending: isLoggingIn, isError, sendRequest } = useHttp();
+
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [usernameInputTouched, setUsernameInputTouched] = useState(false);
@@ -36,32 +37,26 @@ const Login = () => {
     }
   };
 
-  const loginHandler = (event) => {
+  const loginHandler = async (event) => {
     event.preventDefault();
-
-    setLoggingIn(true);
-    setError(false);
 
     const enteredUsername = usernameInput;
     const eneteredPassword = passwordInput;
 
-    fetch(`${process.env.REACT_APP_HOST_URL}/login`, {
-      method: "GET",
-      headers: {
-        Authorization:
-          "Basic " +
-          Buffer.from(
-            `${enteredUsername}:${eneteredPassword}`,
-            "utf-8"
-          ).toString("base64"),
+    await sendRequest(
+      {
+        url: `${process.env.REACT_APP_HOST_URL}/login`,
+        method: "GET",
+        headers: {
+          Authorization:
+            "Basic " +
+            Buffer.from(
+              `${enteredUsername}:${eneteredPassword}`,
+              "utf-8"
+            ).toString("base64"),
+        },
       },
-    }).then((response) => {
-      if (!response.ok) {
-        setLoggingIn(false);
-        setError(true);
-        return;
-      }
-      response.json().then((responseBody) => {
+      (responseBody) => {
         localStorage.setItem("token", responseBody.token);
         const decodedToken = decodeToken(responseBody.token);
         const user = {
@@ -70,9 +65,8 @@ const Login = () => {
         };
 
         authContext.setUser(user);
-        setLoggingIn(false);
-      });
-    });
+      }
+    );
   };
 
   return (

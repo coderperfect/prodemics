@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Alert,
   Box,
@@ -9,12 +10,17 @@ import {
   Snackbar,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import useHttp from "../../hooks/use-http";
 
 const NoticeAdd = () => {
-  const [isAdding, setAdding] = useState(false);
-  const [isAdded, setAdded] = useState(false);
-  const [isError, setError] = useState(false);
+  const {
+    isSending: isAdding,
+    isDone: isAdded,
+    setDone: setAdded,
+    isError,
+    setError,
+    sendRequest,
+  } = useHttp();
 
   const [titleInput, setTitleInput] = useState("");
   const [createdAtInput, setCreatedAtInput] = useState(
@@ -41,12 +47,8 @@ const NoticeAdd = () => {
     }
   };
 
-  const noticeAddHandler = (event) => {
+  const noticeAddHandler = async (event) => {
     event.preventDefault();
-
-    setAdding(true);
-    setAdded(false);
-    setError(false);
 
     const enteredTitle = titleInput;
     const enteredCreatedAt = createdAtInput;
@@ -58,31 +60,26 @@ const NoticeAdd = () => {
       description: enteredDescription,
     };
 
-    fetch(`${process.env.REACT_APP_HOST_URL}/admin/notice/add`, {
-      method: "POST",
-      headers: {
-        Authorization: localStorage.getItem("token"),
-        "Content-Type": "application/json",
+    await sendRequest(
+      {
+        url: `${process.env.REACT_APP_HOST_URL}/admin/notice/add`,
+        method: "POST",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        body: notice,
       },
-      body: JSON.stringify(notice),
-    }).then((response) => {
-      if (!response.ok) {
-        setError(true);
-        setAdding(false);
-        return;
-      }
-      response.json().then((responseBody) => {
+      (responseBody) => {
         if (!!responseBody) {
-          setAdded(true);
           setTitleInput("");
           setCreatedAtInput(new Date().toISOString().split("T")[0]);
           setDescriptionInput("");
           setTitleInputTouched(false);
           setDescriptionInputTouched(false);
         }
-        setAdding(false);
-      });
-    });
+      }
+    );
   };
 
   return (
@@ -104,7 +101,9 @@ const NoticeAdd = () => {
                 onChange={onChangeHandler}
                 onBlur={() => !titleInputTouched && setTitleInputTouched(true)}
                 error={titleInputTouched && !titleInput}
-                helperText={(titleInputTouched && !titleInput) ? 'Please enter title' : null}
+                helperText={
+                  titleInputTouched && !titleInput ? "Please enter title" : null
+                }
               />
             </FormControl>
             <FormControl sx={{ marginBottom: "1rem", width: "90%" }}>
@@ -116,7 +115,7 @@ const NoticeAdd = () => {
                 variant="outlined"
                 onChange={onChangeHandler}
                 error={!createdAtInput}
-                helperText={!createdAtInput ? 'Please enter/select date' : null}
+                helperText={!createdAtInput ? "Please enter/select date" : null}
               />
             </FormControl>
             <FormControl sx={{ marginBottom: "1rem", width: "90%" }}>
@@ -133,7 +132,11 @@ const NoticeAdd = () => {
                   !descriptionInputTouched && setDescriptionInputTouched(true)
                 }
                 error={descriptionInputTouched && !descriptionInput}
-                helperText={(descriptionInputTouched && !descriptionInput) ? 'Please enter description' : null}
+                helperText={
+                  descriptionInputTouched && !descriptionInput
+                    ? "Please enter description"
+                    : null
+                }
               />
             </FormControl>
             {isAdding && (

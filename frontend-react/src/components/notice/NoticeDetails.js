@@ -1,29 +1,44 @@
 import { Card, CardContent, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import useHttp from "../../hooks/use-http";
 
 const NoticeDetails = () => {
-  const [notice, setNotice] = useState({id: 0, title: '', description: '', createdAt: ''});
+  const [notice, setNotice] = useState({
+    id: 0,
+    title: "",
+    description: "",
+    createdAt: "",
+  });
+  const { sendRequest } = useHttp();
 
   const params = useParams();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_HOST_URL}/notice/list`, {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    }).then((response) => {
-      response.json().then((responseBody) => {
-        const notice = responseBody.find((notice) => notice.id === +params.id);
-        if(!!notice)
-            setNotice(notice);
-      });
-    });
-  }, [params]);
+    const toAwait = async () =>
+      await sendRequest(
+        {
+          url: `${process.env.REACT_APP_HOST_URL}/notice/list`,
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        },
+        (responseBody) => {
+          const notice = responseBody.find(
+            (notice) => notice.id === +params.id
+          );
+          if (!!notice) setNotice(notice);
+        }
+      );
+
+    toAwait();
+  }, [params, sendRequest]);
 
   return (
-    <Container sx={{marginTop: "2rem", display: "flex", justifyContent: "center"}}>
-      <Card sx={{width: "50%", minHeight: "25rem"}}>
+    <Container
+      sx={{ marginTop: "2rem", display: "flex", justifyContent: "center" }}
+    >
+      <Card sx={{ width: "50%", minHeight: "25rem" }}>
         <CardContent>
           <Typography variant="h5" component="div">
             {notice.title}
