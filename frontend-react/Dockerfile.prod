@@ -8,9 +8,14 @@ RUN npm install
 
 COPY . /app
 
+RUN rm /app/.env.production
+
+RUN cp /app/conf/.env.production.nginx /app/.env.production
+
 RUN npm run build
 
-RUN cp /app/build/index.html /app/build/404.html
+# This is not required as we have full fledged NGINX server
+# RUN cp /app/build/index.html /app/build/404.html
 
 FROM nginx:stable-alpine
 
