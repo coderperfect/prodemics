@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import {
   Alert,
   Box,
@@ -12,6 +12,46 @@ import {
 } from "@mui/material";
 import useHttp from "../../hooks/use-http";
 
+const titleReducer = (state, action) => {
+  if (action.type === "USER_INPUT") {
+    return { value: action.value, isTouched: state.isTouched };
+  }
+
+  if (action.type === "INPUT_BLUR") {
+    if (!state.isTouched) return { value: state.value, isTouched: true };
+    else return state;
+  }
+
+  if (action.type === "RESET") {
+    return { value: "", isTouched: false };
+  }
+};
+
+const descriptionReducer = (state, action) => {
+  if (action.type === "USER_INPUT") {
+    return { value: action.value, isTouched: state.isTouched };
+  }
+
+  if (action.type === "INPUT_BLUR") {
+    if (!state.isTouched) return { value: state.value, isTouched: true };
+    else return state;
+  }
+
+  if (action.type === "RESET") {
+    return { value: "", isTouched: false };
+  }
+};
+
+const createdAtReducer = (state, action) => {
+  if (action.type === "USER_INPUT") {
+    return { value: action.value };
+  }
+
+  if (action.type === "RESET") {
+    return { value: new Date().toISOString().split("T")[0] };
+  }
+};
+
 const NoticeAdd = () => {
   const {
     isSending: isAdding,
@@ -22,25 +62,35 @@ const NoticeAdd = () => {
     sendRequest,
   } = useHttp();
 
-  const [titleInput, setTitleInput] = useState("");
-  const [createdAtInput, setCreatedAtInput] = useState(
-    new Date().toISOString().split("T")[0]
+  const [titleInput, titleInputDispatch] = useReducer(titleReducer, {
+    value: "",
+    isTouched: false,
+  });
+  const [createdAtInput, createdAtInputDispatch] = useReducer(
+    createdAtReducer,
+    { value: new Date().toISOString().split("T")[0] }
   );
-  const [descriptionInput, setDescriptionInput] = useState("");
-
-  const [titleInputTouched, setTitleInputTouched] = useState(false);
-  const [descriptionInputTouched, setDescriptionInputTouched] = useState(false);
+  const [descriptionInput, descriptionInputDispatch] = useReducer(
+    descriptionReducer,
+    { value: "", isTouched: false }
+  );
 
   const onChangeHandler = (event) => {
     switch (event.target.id) {
       case "title":
-        setTitleInput(event.target.value);
+        titleInputDispatch({ type: "USER_INPUT", value: event.target.value });
         break;
       case "createdAt":
-        setCreatedAtInput(event.target.value);
+        createdAtInputDispatch({
+          type: "USER_INPUT",
+          value: event.target.value,
+        });
         break;
       case "description":
-        setDescriptionInput(event.target.value);
+        descriptionInputDispatch({
+          type: "USER_INPUT",
+          value: event.target.value,
+        });
         break;
       default:
         break;
@@ -55,9 +105,9 @@ const NoticeAdd = () => {
     const enteredDescription = descriptionInput;
 
     const notice = {
-      title: enteredTitle,
-      createdAt: enteredCreatedAt,
-      description: enteredDescription,
+      title: enteredTitle.value,
+      createdAt: enteredCreatedAt.value,
+      description: enteredDescription.value,
     };
 
     await sendRequest(
@@ -72,11 +122,9 @@ const NoticeAdd = () => {
       },
       (responseBody) => {
         if (!!responseBody) {
-          setTitleInput("");
-          setCreatedAtInput(new Date().toISOString().split("T")[0]);
-          setDescriptionInput("");
-          setTitleInputTouched(false);
-          setDescriptionInputTouched(false);
+          titleInputDispatch({ type: "RESET" });
+          createdAtInputDispatch({ type: "RESET" });
+          descriptionInputDispatch({ type: "RESET" });
         }
       }
     );
@@ -95,14 +143,16 @@ const NoticeAdd = () => {
               <TextField
                 id="title"
                 type="text"
-                value={titleInput}
+                value={titleInput.value}
                 label="Title"
                 variant="outlined"
                 onChange={onChangeHandler}
-                onBlur={() => !titleInputTouched && setTitleInputTouched(true)}
-                error={titleInputTouched && !titleInput}
+                onBlur={() => titleInputDispatch({ type: "INPUT_BLUR" })}
+                error={titleInput.isTouched && !titleInput.value}
                 helperText={
-                  titleInputTouched && !titleInput ? "Please enter title" : null
+                  titleInput.isTouched && !titleInput.value
+                    ? "Please enter title"
+                    : null
                 }
               />
             </FormControl>
@@ -110,12 +160,14 @@ const NoticeAdd = () => {
               <TextField
                 id="createdAt"
                 type="date"
-                value={createdAtInput}
+                value={createdAtInput.value}
                 label="Date"
                 variant="outlined"
                 onChange={onChangeHandler}
-                error={!createdAtInput}
-                helperText={!createdAtInput ? "Please enter/select date" : null}
+                error={!createdAtInput.value}
+                helperText={
+                  !createdAtInput.value ? "Please enter/select date" : null
+                }
               />
             </FormControl>
             <FormControl sx={{ marginBottom: "1rem", width: "90%" }}>
@@ -124,16 +176,14 @@ const NoticeAdd = () => {
                 type="text"
                 multiline
                 rows={10}
-                value={descriptionInput}
+                value={descriptionInput.value}
                 label="Description"
                 variant="outlined"
                 onChange={onChangeHandler}
-                onBlur={() =>
-                  !descriptionInputTouched && setDescriptionInputTouched(true)
-                }
-                error={descriptionInputTouched && !descriptionInput}
+                onBlur={() => descriptionInputDispatch({ type: "INPUT_BLUR" })}
+                error={descriptionInput.isTouched && !descriptionInput.value}
                 helperText={
-                  descriptionInputTouched && !descriptionInput
+                  descriptionInput.isTouched && !descriptionInput.value
                     ? "Please enter description"
                     : null
                 }
@@ -153,7 +203,11 @@ const NoticeAdd = () => {
               <Button
                 type="submit"
                 variant="contained"
-                disabled={!titleInput || !createdAtInput || !descriptionInput}
+                disabled={
+                  !titleInput.value ||
+                  !createdAtInput.value ||
+                  !descriptionInput.value
+                }
               >
                 Add
               </Button>
