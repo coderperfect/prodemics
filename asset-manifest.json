@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/prodemics/static/css/main.e6c13ad2.css",
-    "main.js": "/prodemics/static/js/main.6053b1ba.js",
+    "main.js": "/prodemics/static/js/main.dbac0efe.js",
     "index.html": "/prodemics/index.html",
     "main.e6c13ad2.css.map": "/prodemics/static/css/main.e6c13ad2.css.map",
-    "main.6053b1ba.js.map": "/prodemics/static/js/main.6053b1ba.js.map"
+    "main.dbac0efe.js.map": "/prodemics/static/js/main.dbac0efe.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.6053b1ba.js"
+    "static/js/main.dbac0efe.js"
   ]
 }
