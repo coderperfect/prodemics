@@ -19,7 +19,7 @@ import { usernameActions } from "../../store/username-slice";
 
 const pagesLoggedIn = [
   { title: "Home", link: "/" },
-  { title: "Notice", link: "/notice" },
+  { title: "Notice", link: `/notice?${new URLSearchParams({pageNumber: 1})}` },
 ];
 const pagesLoggedOut = [{ title: "Login", link: "/login" }];
 const settings = ["Logout"];

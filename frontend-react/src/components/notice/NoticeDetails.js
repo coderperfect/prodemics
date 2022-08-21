@@ -24,7 +24,7 @@ const NoticeDetails = () => {
           },
         },
         (responseBody) => {
-          const notice = responseBody.find(
+          const notice = responseBody.notices.find(
             (notice) => notice.id === +params.id
           );
           if (!!notice) setNotice(notice);
