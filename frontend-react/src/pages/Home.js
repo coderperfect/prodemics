@@ -1,14 +1,17 @@
 import * as React from "react";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import AuthContext from "../store/auth-context";
 
 const Home = () => {
+  const authContext = React.useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const noticeClickHandler = () => {
-    navigate(`/notice?${new URLSearchParams({pageNumber: 1})}`);
-  }
+    navigate(`/notice?${new URLSearchParams({ pageNumber: 1 })}`);
+  };
 
   return (
     <Box
@@ -29,12 +32,27 @@ const Home = () => {
           flexDirection: "column",
           justifyContent: "center",
           textAlign: "center",
-          cursor: 'pointer'
+          cursor: "pointer",
         }}
         onClick={noticeClickHandler}
       >
         View Notices
       </Paper>
+      {authContext.user.authorities.includes("admin") && (
+        <Paper
+          elevation={3}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            textAlign: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate('/signup')}
+        >
+          Add User
+        </Paper>
+      )}
     </Box>
   );
 };

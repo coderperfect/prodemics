@@ -13,6 +13,7 @@ import NoticeDetails from "./components/notice/NoticeDetails";
 import NoticeAdd from "./components/notice/NoticeAdd";
 import { usernameActions } from "./store/username-slice";
 import { fetchAuthorities } from "./store/authorities-actions";
+import Signup from "./pages/Signup";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -90,6 +91,17 @@ function App() {
             path="/login"
             element={
               !authContext.user.username ? <Login /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              !!authContext.user.username &&
+              authContext.user.authorities.includes("admin") ? (
+                <Signup />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
         </Routes>
