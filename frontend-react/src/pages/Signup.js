@@ -13,7 +13,7 @@ import {
 import useHttp from "../hooks/use-http";
 
 const Signup = () => {
-  const { isSending: isSigningUp, isDone, setDone, isError, sendRequest } = useHttp();
+  const { isSending: isSigningUp, isDone, setDone, error, sendRequest } = useHttp();
 
   const [usernameInput, setUsernameInput] = useState("");
   const [nameInput, setNameInput] = useState("");
@@ -135,7 +135,7 @@ const Signup = () => {
             sx={{ textAlign: "center" }}
             onSubmit={loginHandler}
           >
-            {isError && (
+            {error && (
               <Alert
                 severity="error"
                 sx={{
@@ -144,7 +144,7 @@ const Signup = () => {
                   width: "82%",
                 }}
               >
-                Something went wrong
+                {error.includes("Username") ? error : "Something went wrong"}
               </Alert>
             )}
             <h1>Signup</h1>

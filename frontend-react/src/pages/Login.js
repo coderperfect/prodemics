@@ -3,21 +3,24 @@ import {
   Alert,
   Box,
   Button,
+  Chip,
   CircularProgress,
   Container,
   FormControl,
   Grid,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { Buffer } from "buffer";
 import AuthContext from "../store/auth-context";
 import { decodeToken } from "../util/token";
 import useHttp from "../hooks/use-http";
+import { InfoOutlined } from "@mui/icons-material";
 
 const Login = () => {
   const authContext = useContext(AuthContext);
 
-  const { isSending: isLoggingIn, isError, sendRequest } = useHttp();
+  const { isSending: isLoggingIn, error, sendRequest } = useHttp();
 
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -78,7 +81,7 @@ const Login = () => {
             sx={{ textAlign: "center" }}
             onSubmit={loginHandler}
           >
-            {isError && (
+            {error && (
               <Alert
                 severity="error"
                 sx={{
@@ -147,6 +150,13 @@ const Login = () => {
                 Login
               </Button>
             )}
+            <Tooltip title="Username: begula, Password: abc" sx={{marginInline: "6rem", marginTop:"2rem"}}>
+              <Chip
+                icon={<InfoOutlined />}
+                label="Read only user"
+                variant="outlined"
+              />
+            </Tooltip>
           </Box>
         </Grid>
       </Grid>

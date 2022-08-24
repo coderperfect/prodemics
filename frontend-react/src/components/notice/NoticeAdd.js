@@ -57,7 +57,7 @@ const NoticeAdd = () => {
     isSending: isAdding,
     isDone: isAdded,
     setDone: setAdded,
-    isError,
+    error,
     setError,
     sendRequest,
   } = useHttp();
@@ -231,14 +231,14 @@ const NoticeAdd = () => {
           </Alert>
         </Snackbar>
       )}
-      {isError && (
+      {error && (
         <Snackbar
           open={true}
           autoHideDuration={6000}
-          onClose={() => setError(false)}
+          onClose={() => setError(null)}
         >
           <Alert
-            onClose={() => setError(false)}
+            onClose={() => setError(null)}
             variant="filled"
             severity="error"
             sx={{ width: "100%" }}

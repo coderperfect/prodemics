@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 const useHttp = () => {
   const [isSending, setSending] = useState(false);
   const [isDone, setDone] = useState(false);
-  const [isError, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const sendRequest = useCallback(async (requestConfig, applyData) => {
     setSending(true);
@@ -16,7 +16,15 @@ const useHttp = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Status is not okay");
+        let errorResponse = "Something went wrong";
+        try {
+          const responseData = await response.json();
+          if(!!responseData.message)
+            errorResponse = responseData.message;
+        } catch (error) {
+        }
+
+        throw new Error(errorResponse);
       }
 
       setDone(true);
@@ -25,7 +33,7 @@ const useHttp = () => {
 
       applyData(responseData);
     } catch (err) {
-      if (err) setError(true);
+      setError(err.message);
     }
 
     setSending(false);
@@ -36,7 +44,7 @@ const useHttp = () => {
     setSending,
     isDone,
     setDone,
-    isError,
+    error,
     setError,
     sendRequest,
   };
