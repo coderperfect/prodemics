@@ -75,7 +75,7 @@ const Login = () => {
   return (
     <Container sx={{ marginTop: "2rem" }}>
       <Grid container sx={{ justifyContent: "center" }}>
-        <Grid item xs={4}>
+        <Grid item xs={8} lg={4}>
           <Box
             component="form"
             sx={{ textAlign: "center" }}
@@ -150,14 +150,16 @@ const Login = () => {
                 Login
               </Button>
             )}
-            <Tooltip title="Username: begula, Password: abc" sx={{marginInline: "6rem", marginTop:"2rem"}}>
-              <Chip
-                icon={<InfoOutlined />}
-                label="Read only user"
-                variant="outlined"
-              />
-            </Tooltip>
           </Box>
+        </Grid>
+        <Grid item xs={12} lg={12} sx={{ textAlign: "center", mt: "2rem" }}>
+          <Tooltip title="Username: begula, Password: abc">
+            <Chip
+              icon={<InfoOutlined />}
+              label="Read only user"
+              variant="outlined"
+            />
+          </Tooltip>
         </Grid>
       </Grid>
     </Container>

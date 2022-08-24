@@ -36,9 +36,10 @@ const NoticeDetails = () => {
 
   return (
     <Container
+      maxWidth="sm"
       sx={{ marginTop: "2rem", display: "flex", justifyContent: "center" }}
     >
-      <Card sx={{ width: "50%", minHeight: "25rem" }}>
+      <Card sx={{ minHeight: "25rem" }}>
         <CardContent>
           <Typography variant="h5" component="div">
             {notice.title}

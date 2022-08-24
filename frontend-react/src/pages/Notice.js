@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
+  Box,
   Button,
   CircularProgress,
   Container,
@@ -49,20 +50,25 @@ const Notice = () => {
   return (
     <Container>
       <Grid container spacing={2} sx={{ textAlign: "center" }}>
-        <Grid item xs={6}>
+        <Grid
+          item
+          lg={authContext.user.authorities.includes("admin") ? 6 : 12}
+          xs={12}
+        >
           <h1>Notices</h1>
         </Grid>
-        <Grid item xs={6} sx={{ marginTop: "2rem" }}>
-          {authContext.user.authorities.includes("admin") && (
+        {authContext.user.authorities.includes("admin") && (
+          <Grid item lg={6} xs={12} sx={{ marginTop: "2rem" }}>
             <Button variant="contained" onClick={() => navigate("/notice/add")}>
               Add Notice
             </Button>
-          )}
-        </Grid>
-        <Grid container spacing={2} sx={{ textAlign: "center" }}>
+          </Grid>
+        )}
+        <Grid container rowSpacing={2} sx={{ textAlign: "center", mt: "1rem" }}>
           {isSending && (
             <Grid
               item
+              lg={12}
               xs={12}
               sx={{
                 display: "flex",
@@ -84,6 +90,7 @@ const Notice = () => {
         </Grid>
         <Grid
           item
+          lg={12}
           xs={12}
           sx={{ display: "flex", justifyContent: "center", textAlign: "left" }}
         >
