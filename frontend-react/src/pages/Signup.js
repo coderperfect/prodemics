@@ -129,7 +129,7 @@ const Signup = () => {
   return (
     <Container sx={{ marginTop: "2rem" }}>
       <Grid container sx={{ justifyContent: "center" }}>
-        <Grid item xs={4}>
+        <Grid item lg={4} xs={12}>
           <Box
             component="form"
             sx={{ textAlign: "center" }}

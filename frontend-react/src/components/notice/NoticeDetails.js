@@ -1,4 +1,4 @@
-import { Card, CardContent, Container, Typography } from "@mui/material";
+import { Card, CardContent, CircularProgress, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
@@ -10,7 +10,7 @@ const NoticeDetails = () => {
     description: "",
     createdAt: "",
   });
-  const { sendRequest } = useHttp();
+  const { sendRequest, isSending } = useHttp();
 
   const params = useParams();
 
@@ -39,17 +39,20 @@ const NoticeDetails = () => {
       maxWidth="sm"
       sx={{ marginTop: "2rem", display: "flex", justifyContent: "center" }}
     >
+      {isSending && <CircularProgress />}
+      {!isSending && 
       <Card sx={{ minHeight: "25rem" }}>
-        <CardContent>
-          <Typography variant="h5" component="div">
-            {notice.title}
-          </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {notice.createdAt}
-          </Typography>
-          <Typography variant="body2">{notice.description}</Typography>
-        </CardContent>
-      </Card>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          {notice.title}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {notice.createdAt}
+        </Typography>
+        <Typography variant="body2">{notice.description}</Typography>
+      </CardContent>
+    </Card>
+      }
     </Container>
   );
 };
