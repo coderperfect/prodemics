@@ -20,6 +20,10 @@ interface Notice {
 export class NoticeComponent implements OnInit, OnDestroy {
   public showAdd = false;
   public notices: Notice[] = [];
+  public pageSize = 5;
+  public currentPage = 1;
+  public totalPages = 2;
+
   private loggedInUserSub = new Subscription();
 
   constructor(
@@ -36,7 +40,9 @@ export class NoticeComponent implements OnInit, OnDestroy {
     );
 
     this.noticeService.getNotice().subscribe((noticesResponse) => {
-      this.notices.push(...noticesResponse.notices);
+      this.notices = noticesResponse.notices;
+      this.currentPage = noticesResponse.currentPage;
+      this.totalPages = noticesResponse.totalPages;
     });
   }
 
@@ -46,5 +52,13 @@ export class NoticeComponent implements OnInit, OnDestroy {
 
   onNoticeSummaryClick(event: {id: number}) {
     this.router.navigate([`/notice/${event.id}`]);
+  }
+
+  onPageChange(): void {
+    this.noticeService.getNotice(this.currentPage).subscribe((noticesResponse) => {
+      this.notices = noticesResponse.notices;
+      this.currentPage = noticesResponse.currentPage;
+      this.totalPages = noticesResponse.totalPages;
+    });
   }
 }

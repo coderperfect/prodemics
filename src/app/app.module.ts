@@ -11,7 +11,7 @@ import { NoticeComponent } from './notice/notice.component';
 import { NoticeDetailsComponent } from './notice/notice-details/notice-details.component';
 import { NoticeAddComponent } from './notice/notice-add/notice-add.component';
 import { HomeComponent } from './home/home.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthInterceptor } from './login/auth-interceptor.service';
 import { NoticeSummaryComponent } from './notice/notice-summary/notice-summary.component';
 
@@ -32,6 +32,7 @@ import { NoticeSummaryComponent } from './notice/notice-summary/notice-summary.c
     FormsModule,
     HttpClientModule,
     NgbModule,
+    NgbPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

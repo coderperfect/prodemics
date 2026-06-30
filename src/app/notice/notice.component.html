@@ -10,7 +10,17 @@
         </div>
         <div class="row">
             <div class="col justify-content-center" style="text-align: left;">
-                <app-notice-summary [notice]="notice" (noticeClick)="onNoticeSummaryClick($event)" *ngFor="let notice of notices"></app-notice-summary>
+                <app-notice-summary 
+                    [notice]="notice" 
+                    (noticeClick)="onNoticeSummaryClick($event)" 
+                    *ngFor="let notice of notices">
+                </app-notice-summary>
+                <ngb-pagination class="d-flex justify-content-center" 
+                    [collectionSize]="pageSize * totalPages" 
+                    [pageSize]="pageSize" [(page)]="currentPage" 
+                    aria-label="Notice pagination"
+                    (pageChange)="onPageChange()">
+                </ngb-pagination>
             </div>
         </div>
     </div>
