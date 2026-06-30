@@ -25,14 +25,12 @@ export class NoticeDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.noticeService.getNotice().subscribe((noticesResponse) => {
-      this.notice = noticesResponse.notices
-        .filter((notice) => notice.id === this.noticeId)
-        .at(0)!;
-    });
-
     this.route.paramMap.subscribe((paramsMap) => {
       this.noticeId = +paramsMap.get('id')!;
+    });
+
+    this.noticeService.getNotice(this.noticeId).subscribe((noticesResponse) => {
+      this.notice = noticesResponse;
     });
   }
 }

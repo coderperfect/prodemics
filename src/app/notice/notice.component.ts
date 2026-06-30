@@ -39,7 +39,7 @@ export class NoticeComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.noticeService.getNotice().subscribe((noticesResponse) => {
+    this.noticeService.getNotices().subscribe((noticesResponse) => {
       this.notices = noticesResponse.notices;
       this.currentPage = noticesResponse.currentPage;
       this.totalPages = noticesResponse.totalPages;
@@ -55,7 +55,7 @@ export class NoticeComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(): void {
-    this.noticeService.getNotice(this.currentPage).subscribe((noticesResponse) => {
+    this.noticeService.getNotices(this.currentPage).subscribe((noticesResponse) => {
       this.notices = noticesResponse.notices;
       this.currentPage = noticesResponse.currentPage;
       this.totalPages = noticesResponse.totalPages;

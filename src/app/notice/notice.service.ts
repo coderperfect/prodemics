@@ -20,11 +20,15 @@ interface NoticesResponse {
 export class NoticeService {
   constructor(private httpClient: HttpClient) {}
 
-  getNotice(pageNumber?: number) {
+  getNotices(pageNumber?: number) {
     if(!pageNumber)
       return this.httpClient.get<NoticesResponse>(`${environment.HOST_URL}/notice/list`);
     
     return this.httpClient.get<NoticesResponse>(`${environment.HOST_URL}/notice/list?pageNumber=${pageNumber}`);
+  }
+
+  getNotice(noticeId: number) {
+    return this.httpClient.get<Notice>(`${environment.HOST_URL}/notice/${noticeId}`);
   }
 
   addNotice(title: string, description: string, createdAt: string) {
