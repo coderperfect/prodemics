@@ -26,7 +26,7 @@ export class NoticeComponent implements OnInit, OnDestroy {
   public notices: Notice[] = [];
   public pageSize = 5;
   public currentPage = 1;
-  public totalPages = 2;
+  public totalPages = 1;
 
   private loggedInUserSub = new Subscription();
 
