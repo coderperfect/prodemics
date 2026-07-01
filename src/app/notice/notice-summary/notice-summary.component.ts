@@ -8,9 +8,10 @@ interface Notice {
 }
 
 @Component({
-  selector: 'app-notice-summary',
-  templateUrl: './notice-summary.component.html',
-  styleUrls: ['./notice-summary.component.css']
+    selector: 'app-notice-summary',
+    templateUrl: './notice-summary.component.html',
+    styleUrls: ['./notice-summary.component.css'],
+    standalone: false
 })
 export class NoticeSummaryComponent implements OnInit {
   @Input('notice') public noticeData: Notice = {id: 0, title: '', description: '', createdAt: ''};

@@ -3,9 +3,10 @@ import { NgForm, NgModel } from '@angular/forms';
 import { NoticeService } from '../notice.service';
 
 @Component({
-  selector: 'app-notice-add',
-  templateUrl: './notice-add.component.html',
-  styleUrls: ['./notice-add.component.css'],
+    selector: 'app-notice-add',
+    templateUrl: './notice-add.component.html',
+    styleUrls: ['./notice-add.component.css'],
+    standalone: false
 })
 export class NoticeAddComponent implements OnInit {
   public isError = false;

@@ -13,9 +13,10 @@ interface Notice {
 }
 
 @Component({
-  selector: 'app-notice',
-  templateUrl: './notice.component.html',
-  styleUrls: ['./notice.component.css'],
+    selector: 'app-notice',
+    templateUrl: './notice.component.html',
+    styleUrls: ['./notice.component.css'],
+    standalone: false
 })
 export class NoticeComponent implements OnInit, OnDestroy {
   public showAdd = false;

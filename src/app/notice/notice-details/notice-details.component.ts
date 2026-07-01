@@ -11,9 +11,10 @@ interface Notice {
 }
 
 @Component({
-  selector: 'app-notice-details',
-  templateUrl: './notice-details.component.html',
-  styleUrls: ['./notice-details.component.css'],
+    selector: 'app-notice-details',
+    templateUrl: './notice-details.component.html',
+    styleUrls: ['./notice-details.component.css'],
+    standalone: false
 })
 export class NoticeDetailsComponent implements OnInit {
   public noticeId = 0;

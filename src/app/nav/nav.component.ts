@@ -9,9 +9,10 @@ import { filter, map, Observable, Subscription } from 'rxjs';
 import { LoginService } from '../login/login.service';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css'],
+    selector: 'app-nav',
+    templateUrl: './nav.component.html',
+    styleUrls: ['./nav.component.css'],
+    standalone: false
 })
 export class NavComponent implements OnInit, OnDestroy {
   public isAuth = false;
