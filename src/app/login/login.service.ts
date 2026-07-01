@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Buffer } from 'buffer';
 import { BehaviorSubject, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -44,7 +43,7 @@ export class LoginService {
         headers: {
           Authorization:
             'Basic ' +
-            Buffer.from(`${username}:${password}`, 'utf-8').toString('base64'),
+            btoa(`${username}:${password}`)
         },
       })
       .pipe(
