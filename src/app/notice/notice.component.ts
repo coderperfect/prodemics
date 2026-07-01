@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { LoginService } from '../login/login.service';
 import { NoticeService } from './notice.service';
+import { NoticeSummaryComponent } from './notice-summary/notice-summary.component';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap/pagination';
 
 interface Notice {
   id: number,
@@ -17,7 +19,7 @@ interface Notice {
     templateUrl: './notice.component.html',
     styleUrls: ['./notice.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [NoticeSummaryComponent, NgbPagination, RouterOutlet]
 })
 export class NoticeComponent implements OnInit, OnDestroy {
   public showAdd = false;

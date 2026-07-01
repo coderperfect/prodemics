@@ -1,19 +1,15 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  UrlSegment,
-} from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, UrlSegment, RouterLink } from '@angular/router';
 import { filter, map, Observable, Subscription } from 'rxjs';
 import { LoginService } from '../login/login.service';
+import { NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase } from '@ng-bootstrap/ng-bootstrap/nav';
 
 @Component({
     selector: 'app-nav',
     templateUrl: './nav.component.html',
     styleUrls: ['./nav.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [RouterLink, NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase]
 })
 export class NavComponent implements OnInit, OnDestroy {
   public isAuth = false;

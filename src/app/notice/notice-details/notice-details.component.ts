@@ -14,8 +14,7 @@ interface Notice {
     selector: 'app-notice-details',
     templateUrl: './notice-details.component.html',
     styleUrls: ['./notice-details.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class NoticeDetailsComponent implements OnInit {
   public noticeId = 0;

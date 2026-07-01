@@ -15,21 +15,17 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthInterceptor } from './login/auth-interceptor.service';
 import { NoticeSummaryComponent } from './notice/notice-summary/notice-summary.component';
 
-@NgModule({ declarations: [
-        AppComponent,
-        NavComponent,
+@NgModule({ declarations: [AppComponent], bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        NgbModule,
+        NgbPaginationModule, NavComponent,
         LoginComponent,
         NoticeComponent,
         NoticeDetailsComponent,
         NoticeAddComponent,
         HomeComponent,
-        NoticeSummaryComponent,
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        NgbModule,
-        NgbPaginationModule], providers: [
+        NoticeSummaryComponent], providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         provideHttpClient(withXhr(), withInterceptorsFromDi()),
     ] })

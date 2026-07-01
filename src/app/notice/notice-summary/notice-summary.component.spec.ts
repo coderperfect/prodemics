@@ -8,8 +8,8 @@ describe('NoticeSummaryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NoticeSummaryComponent ]
-    })
+    imports: [NoticeSummaryComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(NoticeSummaryComponent);

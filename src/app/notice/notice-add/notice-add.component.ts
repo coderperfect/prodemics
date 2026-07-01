@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { NgForm, NgModel } from '@angular/forms';
+import { NgForm, NgModel, FormsModule } from '@angular/forms';
 import { NoticeService } from '../notice.service';
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap/alert';
+import { NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap/datepicker';
 
 @Component({
     selector: 'app-notice-add',
     templateUrl: './notice-add.component.html',
     styleUrls: ['./notice-add.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [FormsModule, NgbAlert, NgbInputDatepicker]
 })
 export class NoticeAddComponent implements OnInit {
   public isError = false;
