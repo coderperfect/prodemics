@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -16,6 +16,7 @@ interface Notice {
     selector: 'app-notice',
     templateUrl: './notice.component.html',
     styleUrls: ['./notice.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NoticeComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 
 interface Notice {
   id: number,
@@ -11,6 +11,7 @@ interface Notice {
     selector: 'app-notice-summary',
     templateUrl: './notice-summary.component.html',
     styleUrls: ['./notice-summary.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NoticeSummaryComponent implements OnInit {

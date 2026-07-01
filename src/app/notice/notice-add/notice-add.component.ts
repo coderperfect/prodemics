@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { NoticeService } from '../notice.service';
 
@@ -6,6 +6,7 @@ import { NoticeService } from '../notice.service';
     selector: 'app-notice-add',
     templateUrl: './notice-add.component.html',
     styleUrls: ['./notice-add.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NoticeAddComponent implements OnInit {

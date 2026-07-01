@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -12,6 +12,7 @@ import { LoginService } from '../login/login.service';
     selector: 'app-nav',
     templateUrl: './nav.component.html',
     styleUrls: ['./nav.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NavComponent implements OnInit, OnDestroy {
