@@ -1,0 +1,18 @@
+.home-page {
+    padding: 3rem 2rem;
+}
+
+.dashboard {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.dashboard-card {
+    width: 180px;
+    height: 180px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}

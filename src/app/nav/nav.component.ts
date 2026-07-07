@@ -2,7 +2,9 @@ import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/
 import { ActivatedRoute, NavigationEnd, Router, UrlSegment, RouterLink } from '@angular/router';
 import { filter, map, Observable, Subscription } from 'rxjs';
 import { LoginService } from '../login/login.service';
-import { NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase } from '@ng-bootstrap/ng-bootstrap/nav';
+import { 
+  NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase 
+} from '@ng-bootstrap/ng-bootstrap/nav';
 
 @Component({
     selector: 'app-nav',

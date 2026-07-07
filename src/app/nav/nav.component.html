@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="">Prodemics</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbarNavLightDropdown"
@@ -25,11 +25,11 @@
       </ul>
     </div>
     <div class="collapse navbar-collapse navbarNavLightDropdown justify-content-end">
-      <ul class="navbar-nav">
-        @if (isAuth) {
-          <li class="btn btn-link text-decoration-none" (click)="onLogout()">Logout</li>
-        }
-      </ul>
+      @if (isAuth) {
+        <div class="user-actions">
+            <button class="logout-button" (click)="onLogout()">Sign out</button>
+        </div>
+      }
     </div>
   </div>
 </nav>

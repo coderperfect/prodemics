@@ -1,0 +1,53 @@
+.navbar {
+    padding: 1rem 2rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--surface);
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar .nav {
+    gap: var(--space-2);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.navbar .nav-link {
+    color: var(--text-primary);
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    transition: background-color 180ms ease;
+}
+
+.navbar .nav-link:hover {
+    background-color: var(--surface-hover);
+}
+
+.navbar .nav-link.active {
+    background-color: var(--surface-active);
+}
+
+.logout-button {
+    background: transparent;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+
+    font: inherit;
+    color: inherit;
+
+    cursor: pointer;
+
+    transition: background-color 180ms ease, color 180ms ease;
+}
+
+.logout-button:hover {
+    background-color: var(--surface-hover);
+}
+
+.logout-button:focus-visible {
+    outline: 2px solid var(--border);
+    outline-offset: 2px;
+}
