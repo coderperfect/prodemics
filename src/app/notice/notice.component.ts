@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -22,11 +22,11 @@ interface Notice {
     imports: [NoticeSummaryComponent, NgbPagination, RouterOutlet]
 })
 export class NoticeComponent implements OnInit, OnDestroy {
-  public showAdd = false;
-  public notices: Notice[] = [];
-  public pageSize = 5;
-  public currentPage = 1;
-  public totalPages = 1;
+  readonly showAdd = signal(false);
+  readonly notices = signal<Notice[]>([]);
+  readonly pageSize = signal(5);
+  readonly currentPage = signal(1);
+  readonly totalPages = signal(1);
 
   private loggedInUserSub = new Subscription();
 
@@ -39,14 +39,14 @@ export class NoticeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loggedInUserSub = this.loginService.loggedInUser.subscribe(
       (loggedInUser) => {
-        this.showAdd = !!loggedInUser.authorities.toString().includes('admin');
+        this.showAdd.set(!!loggedInUser.authorities.toString().includes('admin'));
       }
     );
 
     this.noticeService.getNotices().subscribe((noticesResponse) => {
-      this.notices = noticesResponse.notices;
-      this.currentPage = noticesResponse.currentPage;
-      this.totalPages = noticesResponse.totalPages;
+      this.notices.set(noticesResponse.notices);
+      this.currentPage.set(noticesResponse.currentPage);
+      this.totalPages.set(noticesResponse.totalPages);
     });
   }
 
@@ -58,11 +58,13 @@ export class NoticeComponent implements OnInit, OnDestroy {
     this.router.navigate([`/notice/${event.id}`]);
   }
 
-  onPageChange(): void {
-    this.noticeService.getNotices(this.currentPage).subscribe((noticesResponse) => {
-      this.notices = noticesResponse.notices;
-      this.currentPage = noticesResponse.currentPage;
-      this.totalPages = noticesResponse.totalPages;
+  onPageChange(page: number): void {
+    this.currentPage.set(page)
+
+    this.noticeService.getNotices(page).subscribe((noticesResponse) => {
+      this.notices.set(noticesResponse.notices);
+      this.currentPage.set(noticesResponse.currentPage);
+      this.totalPages.set(noticesResponse.totalPages);
     });
   }
 }

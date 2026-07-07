@@ -1,35 +1,30 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
+import { map } from 'rxjs';
 import { LoginService } from './login.service';
 
-@Injectable({ providedIn: 'root' })
-export class AuthGuard  {
-  constructor(private loginService: LoginService, private router: Router) {}
+export const authGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot
+) => {
+  const loginService = inject(LoginService);
+  const router = inject(Router);
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | boolean
-    | UrlTree
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree> {
-    return this.loginService.loggedInUser.pipe(
-      map((loggedInUser) => {
-        const isAuth = !!loggedInUser.username;
+  return loginService.loggedInUser.pipe(
+    map(loggedInUser => {
+      const isAuth = !!loggedInUser.username;
 
-        if (isAuth) {
-          if (route.url.toString() === 'login')
-            return this.router.createUrlTree(['/']);
-
-          return true;
+      if (isAuth) {
+        if (route.routeConfig?.path === 'login') {
+          return router.createUrlTree(['/']);
         }
+        return true;
+      }
 
-        if (route.url.toString() === 'login') return true;
+      if (route.routeConfig?.path === 'login') {
+        return true;
+      }
 
-        return this.router.createUrlTree(['/login']);
-      })
-    );
-  }
-}
+      return router.createUrlTree(['/login']);
+    })
+  );
+};

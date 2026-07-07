@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NoticeService } from '../notice.service';
@@ -17,8 +17,8 @@ interface Notice {
     changeDetection: ChangeDetectionStrategy.Eager
 })
 export class NoticeDetailsComponent implements OnInit {
-  public noticeId = 0;
-  public notice: Notice = { id: 0, title: '', description: '', createdAt: '' };
+  readonly noticeId = signal(0);
+  readonly notice = signal<Notice>({ id: 0, title: '', description: '', createdAt: '' });
 
   constructor(
     private route: ActivatedRoute,
@@ -27,11 +27,11 @@ export class NoticeDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramsMap) => {
-      this.noticeId = +paramsMap.get('id')!;
+      this.noticeId.set(+paramsMap.get('id')!);
     });
 
-    this.noticeService.getNotice(this.noticeId).subscribe((noticesResponse) => {
-      this.notice = noticesResponse;
+    this.noticeService.getNotice(this.noticeId()).subscribe((noticesResponse) => {
+      this.notice.set(noticesResponse);
     });
   }
 }

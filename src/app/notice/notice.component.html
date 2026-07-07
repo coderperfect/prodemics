@@ -6,25 +6,27 @@
           <h1>Notices</h1>
         </div>
         <div class="col">
-          @if (showAdd) {
+          @if (showAdd()) {
             <button class="btn btn-primary" (click)="router.navigate(['/notice/add'])">Add Notice</button>
           }
         </div>
       </div>
       <div class="row">
         <div class="col justify-content-center" style="text-align: left;">
-          @for (notice of notices; track notice) {
+          @for (notice of notices(); track notice.id) {
             <app-notice-summary
               [notice]="notice"
               (noticeClick)="onNoticeSummaryClick($event)"
               >
             </app-notice-summary>
+          } @empty {
+            <p class="text-center text-secondary">No notices available.</p>
           }
           <ngb-pagination class="d-flex justify-content-center"
-            [collectionSize]="pageSize * totalPages"
-            [pageSize]="pageSize" [(page)]="currentPage"
-            aria-label="Notice pagination"
-            (pageChange)="onPageChange()">
+            [collectionSize]="pageSize() * totalPages()"
+            [pageSize]="pageSize()" [page]="currentPage()"
+            (pageChange)="onPageChange($event)"
+            aria-label="Notice pagination">
           </ngb-pagination>
         </div>
       </div>
