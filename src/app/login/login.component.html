@@ -1,30 +1,35 @@
-<div class="container mt-3">
-  <div class="row justify-content-md-center">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="col-4">
-      @if (isError) {
-        <div class="alert alert-danger" role="alert">Username/Password is incorrect!</div>
-      }
-      <div class="mb-3">
-        <label for="username" class="form-label">User name:</label>
-        <input type="text" ngModel name="username" class="form-control" />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password:</label>
-        <input type="password" ngModel name="password" class="form-control" />
-      </div>
-      @if (!isLoggingIn) {
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">Login</button>
+<main class="login-page">
+    <section class="login-card">
+        <header class="login-header">
+            <h1>Welcome back</h1>
+            <p>Sign in to continue to Prodemics.</p>
+        </header>
+
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        @if (isError) {
+          <div class="alert alert-danger" role="alert">Username/Password is incorrect!</div>
+        }
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" ngModel name="username" class="form-control" />
         </div>
-      }
-      @if (isLoggingIn) {
-        <div class="text-center">
-          <button class="btn btn-primary" type="button" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Logging In
-          </button>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" ngModel name="password" class="form-control" />
         </div>
-      }
-    </form>
-  </div>
-</div>
+        @if (!isLoggingIn) {
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+          </div>
+        }
+        @if (isLoggingIn) {
+          <div class="text-center">
+            <button class="btn btn-primary" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Signing in...
+            </button>
+          </div>
+        }
+      </form>
+    </section>
+</main>
