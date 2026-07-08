@@ -6,6 +6,9 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    // Skip ngrok warning page
+    req = req.clone({headers: req.headers.append('ngrok-skip-browser-warning', 'true')});
+
     if (!req.url.includes('/login')) {
       const modifiedReq = req.clone({
         headers: req.headers.append(
