@@ -6,10 +6,21 @@
         </header>
 
         <section class="dashboard-cards">
-            <div class="dashboard-card card mb-3 mx-auto">
-                <a class="card-body text-decoration-none d-flex align-items-center justify-content-center" 
-                    routerLink="notice"><h6>Notices</h6></a>
-            </div>
+            <app-dashboard-card title="Notices" routerLink="notice"> 
+                <svg lucideMegaphone></svg>
+            </app-dashboard-card>
+
+            <app-dashboard-card title="Attendance" [comingSoon]="true">
+                <svg lucideClipboardCheck></svg>
+            </app-dashboard-card>
+
+            <app-dashboard-card title="Timetable" [comingSoon]="true">
+                <svg lucideCalendarDays></svg>
+            </app-dashboard-card>
+
+            <app-dashboard-card title="Assignments" [comingSoon]="true">
+                <svg lucideBookOpen></svg>
+            </app-dashboard-card>
         </section>
     </section>
 </main>

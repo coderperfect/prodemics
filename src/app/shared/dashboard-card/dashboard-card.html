@@ -1,0 +1,7 @@
+<a
+    class="dashboard-card"
+    [class.dashboard-card-coming-soon]="comingSoon()"
+    [routerLink]="comingSoon() ? null : routerLink()">
+    <ng-content></ng-content>
+    <h3>{{ title() }}</h3>
+</a>
