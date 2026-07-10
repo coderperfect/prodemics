@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, signal, effect } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -34,7 +34,20 @@ export class NoticeComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private noticeService: NoticeService,
     public router: Router
-  ) {}
+  ) {
+    effect(() => {
+      this.noticeService.noticeRefresh();
+      this.loadNotices();
+    });
+  }
+
+  private loadNotices(page = this.currentPage()) {
+    this.noticeService.getNotices(page).subscribe((response) => {
+      this.notices.set(response.notices);
+      this.currentPage.set(response.currentPage);
+      this.totalPages.set(response.totalPages);
+    });
+  }
 
   ngOnInit(): void {
     this.loggedInUserSub = this.loginService.loggedInUser.subscribe(
@@ -42,12 +55,6 @@ export class NoticeComponent implements OnInit, OnDestroy {
         this.showAdd.set(!!loggedInUser.authorities.toString().includes('admin'));
       }
     );
-
-    this.noticeService.getNotices().subscribe((noticesResponse) => {
-      this.notices.set(noticesResponse.notices);
-      this.currentPage.set(noticesResponse.currentPage);
-      this.totalPages.set(noticesResponse.totalPages);
-    });
   }
 
   ngOnDestroy(): void {
@@ -59,12 +66,8 @@ export class NoticeComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(page: number): void {
-    this.currentPage.set(page)
+    this.currentPage.set(page);
 
-    this.noticeService.getNotices(page).subscribe((noticesResponse) => {
-      this.notices.set(noticesResponse.notices);
-      this.currentPage.set(noticesResponse.currentPage);
-      this.totalPages.set(noticesResponse.totalPages);
-    });
+    this.loadNotices(page);
   }
 }

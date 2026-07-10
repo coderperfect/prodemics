@@ -37,6 +37,8 @@ export class NoticeAddComponent implements OnInit {
         if (!!notice.id) {
           form.reset();
           this.isAdded = true;
+
+          this.noticeService.noticeRefresh.update(value => value + 1);
         }
       },
       error: (error) => {
