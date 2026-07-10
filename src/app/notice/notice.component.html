@@ -8,8 +8,8 @@
             </div>
 
             @if (showAdd()) {
-                <button class="btn btn-primary" 
-                  (click)="router.navigate(['/notice/add'])">Add Notice</button>
+                <button class="add-notice-btn" (click)="router.navigate(['/notice/add'])">
+                    <svg lucidePlus></svg> Add Notice </button>
             }
         </header>
 

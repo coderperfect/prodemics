@@ -6,6 +6,7 @@ import { LoginService } from '../login/login.service';
 import { NoticeService } from './notice.service';
 import { NoticeSummaryComponent } from './notice-summary/notice-summary.component';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap/pagination';
+import { LucidePlus } from '@lucide/angular';
 
 interface Notice {
   id: number,
@@ -19,7 +20,7 @@ interface Notice {
     templateUrl: './notice.component.html',
     styleUrls: ['./notice.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NoticeSummaryComponent, NgbPagination, RouterOutlet]
+    imports: [NoticeSummaryComponent, NgbPagination, RouterOutlet, LucidePlus]
 })
 export class NoticeComponent implements OnInit, OnDestroy {
   readonly showAdd = signal(false);
