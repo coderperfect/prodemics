@@ -1,3 +1,13 @@
-<div class="card mb-3 mx-auto" style="width:60%;">
-    <a class="card-body text-decoration-none" [ngStyle]="{cursor: 'pointer'}" (click)="onNoticeClick()">{{noticeData.title}}</a>
-</div>
+<article class="notice-card" (click)="onNoticeClick()">
+    <div class="notice-icon">
+        <svg lucideMegaphone></svg>
+    </div>
+
+    <div class="notice-content">
+        <h3>{{ noticeData.title }}</h3>
+
+        <p class="notice-date"> {{ noticeData.createdAt | date:'d MMM yyyy' }} </p>
+
+        <p class="notice-description"> {{ noticeData.description }}</p>
+    </div>
+</article>

@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { NoticeService } from '../notice.service';
+import { DatePipe } from '@angular/common';
+import { LucideArrowLeft, LucideMegaphone } from '@lucide/angular';
 
 interface Notice {
   id: number;
@@ -14,7 +16,8 @@ interface Notice {
     selector: 'app-notice-details',
     templateUrl: './notice-details.component.html',
     styleUrls: ['./notice-details.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [DatePipe, RouterLink, LucideMegaphone, LucideArrowLeft]
 })
 export class NoticeDetailsComponent implements OnInit {
   readonly noticeId = signal(0);

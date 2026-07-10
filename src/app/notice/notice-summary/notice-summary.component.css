@@ -1,0 +1,57 @@
+.notice-card {
+    display: flex;
+    gap: 1.5rem;
+
+    padding: 1.75rem;
+    background: var(--surface);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+
+    cursor: pointer;
+    transition:
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+.notice-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px rgba(15, 23, 42, .10);
+}
+
+.notice-icon {
+    display: flex;
+    align-items: flex-start;
+}
+
+.notice-icon svg {
+    width: 28px;
+    height: 28px;
+    color: var(--accent);
+}
+
+.notice-content {
+    flex: 1;
+}
+
+.notice-content h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.notice-date {
+    margin: .35rem 0 1rem;
+    color: var(--text-secondary);
+    font-size: .9rem;
+}
+
+.notice-description {
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1.6;
+
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

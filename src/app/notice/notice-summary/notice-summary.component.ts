@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
-import { NgStyle } from '@angular/common';
+import { DatePipe } from '@angular/common';
+import { LucideMegaphone } from '@lucide/angular';
 
 interface Notice {
   id: number,
@@ -13,7 +14,7 @@ interface Notice {
     templateUrl: './notice-summary.component.html',
     styleUrls: ['./notice-summary.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NgStyle]
+    imports: [DatePipe, LucideMegaphone]
 })
 export class NoticeSummaryComponent implements OnInit {
   @Input('notice') public noticeData: Notice = {id: 0, title: '', description: '', createdAt: ''};
