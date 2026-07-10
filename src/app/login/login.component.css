@@ -80,3 +80,13 @@
     color: var(--text-secondary);
     margin: 0;
 }
+
+@media (max-width: 768px) {
+    .login-page {
+        padding: 1.5rem 1rem;
+    }
+
+    .login-card {
+        padding: 2rem;
+    }
+}

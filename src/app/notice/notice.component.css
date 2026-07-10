@@ -99,3 +99,20 @@
 ::ng-deep .page-item.disabled .page-link {
     opacity: .45;
 }
+
+@media (max-width: 768px) {
+    .notice-page {
+        padding: 2rem 1rem;
+    }
+
+    .notice-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .add-notice-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

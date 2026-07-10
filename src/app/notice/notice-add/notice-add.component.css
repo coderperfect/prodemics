@@ -101,3 +101,17 @@ textarea.ng-invalid.ng-touched {
     color: #dc3545;
     font-size: .9rem;
 }
+
+@media (max-width: 768px) {
+    .notice-details-page {
+        padding: 2rem 1rem;
+    }
+
+    .notice-card {
+        padding: 2rem;
+    }
+
+    .notice-card h1 {
+        font-size: 1.6rem;
+    }
+}

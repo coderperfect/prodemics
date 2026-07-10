@@ -66,3 +66,17 @@
     line-height: 1.8;
     white-space: pre-wrap;
 }
+
+@media (max-width: 768px) {
+    .notice-details-page {
+        padding: 2rem 1rem;
+    }
+
+    .notice-card {
+        padding: 2rem;
+    }
+
+    .notice-card h1 {
+        font-size: 1.6rem;
+    }
+}

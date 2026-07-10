@@ -19,3 +19,28 @@
     gap: 2rem;
     margin-top: 2.5rem;
 }
+
+@media (max-width: 768px) {
+    .home-page {
+        padding: 2rem 1rem;
+    }
+
+    .dashboard {
+        padding: 0;
+    }
+
+    .dashboard-header {
+        text-align: center;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 1.25rem;
+    }
+
+    .dashboard-card {
+        width: 100%;
+        max-width: 260px;
+    }
+}
