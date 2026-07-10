@@ -3,13 +3,15 @@ import { NgForm, NgModel, FormsModule } from '@angular/forms';
 import { NoticeService } from '../notice.service';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap/alert';
 import { NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap/datepicker';
+import { RouterLink } from '@angular/router';
+import { LucideArrowLeft } from '@lucide/angular';
 
 @Component({
     selector: 'app-notice-add',
     templateUrl: './notice-add.component.html',
     styleUrls: ['./notice-add.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, NgbAlert, NgbInputDatepicker]
+    imports: [FormsModule, NgbAlert, NgbInputDatepicker, RouterLink, LucideArrowLeft]
 })
 export class NoticeAddComponent implements OnInit {
   public isError = false;
