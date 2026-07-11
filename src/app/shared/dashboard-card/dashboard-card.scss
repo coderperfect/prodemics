@@ -1,4 +1,12 @@
+:host {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    justify-self: center;
+}
+
 .dashboard-card {
+    width: 100%;
     aspect-ratio: 1;
 
     display: flex;

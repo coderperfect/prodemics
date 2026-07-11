@@ -3,44 +3,56 @@
     flex: 1;
 }
 
+/* ---------------- Mobile ---------------- */
+
 .home-page {
-    padding: 3rem 2rem;
+    padding: 1.5rem 1rem;
 }
 
 .dashboard {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1rem;
+    width: 100%;
+}
+
+.dashboard-header {
+    text-align: center;
+}
+
+.dashboard-header h1 {
+    margin-bottom: .25rem;
+}
+
+.dashboard-header p {
+    margin: 0;
+    color: var(--text-secondary);
 }
 
 .dashboard-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 2rem;
-    margin-top: 2.5rem;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    justify-items: center;
 }
 
-@media (max-width: 768px) {
+/* ---------------- Desktop ---------------- */
+
+@media (min-width: 768px) {
     .home-page {
-        padding: 2rem 1rem;
+        padding: 3rem 2rem;
     }
 
     .dashboard {
-        padding: 0;
+        max-width: 900px;
+        margin: 0 auto;
     }
 
     .dashboard-header {
-        text-align: center;
+        text-align: left;
     }
 
     .dashboard-cards {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        gap: 1.25rem;
-    }
-
-    .dashboard-card {
-        width: 100%;
-        max-width: 260px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-top: 2.5rem;
     }
 }
