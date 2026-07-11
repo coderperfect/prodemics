@@ -1,10 +1,10 @@
 :host {
-    flex: 1;
     display: flex;
+    flex: 1;
 }
 
 .login-page {
-    padding: 3rem 2rem;
+    padding: 1.5rem 1rem;
     
     flex: 1;
     display: flex;
@@ -14,8 +14,8 @@
 }
 
 .login-card {
-    width: min(100%, 440px);
-    padding: 3rem;
+    width: 100%;
+    padding: 2rem;
     background: var(--surface);
     border-radius: 20px;
     box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
@@ -81,12 +81,17 @@
     margin: 0;
 }
 
-@media (max-width: 768px) {
+.alert {
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
     .login-page {
-        padding: 1.5rem 1rem;
+        padding: 3rem 2rem;
     }
 
     .login-card {
-        padding: 2rem;
+        max-width: 440px;
+        padding: 3rem;
     }
 }
