@@ -1,35 +1,33 @@
 <nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="">Prodemics</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbarNavLightDropdown"
-      aria-controls="navbarNavLightDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse navbarNavLightDropdown">
-      <ul ngbNav [activeId]="currentNavItemId" class="nav-pills">
-        @if (isAuth) {
-          <li ngbNavItem='home'>
-            <a ngbNavLink routerLink="">Home</a>
-          </li>
-        }
-        @if (isAuth) {
-          <li ngbNavItem='notice'>
-            <a ngbNavLink routerLink="notice">Notice</a>
-          </li>
-        }
-        @if (!isAuth) {
-          <li ngbNavItem='login'>
-            <a ngbNavLink routerLink="login">Sign in</a>
-          </li>
-        }
-      </ul>
-    </div>
-    <div class="collapse navbar-collapse navbarNavLightDropdown justify-content-end">
-      @if (isAuth) {
-        <div class="user-actions">
-            <button class="logout-button" (click)="onLogout()">Sign out</button>
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink=""> Prodemics </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <svg lucideMenu></svg>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <div class="navbar-content">
+                <ul ngbNav [activeId]="currentNavItemId" class="nav nav-pills">
+                  @if (isAuth) {
+                    <li ngbNavItem="home"> <a ngbNavLink routerLink=""> Home </a> </li>
+                  }
+
+                  @if (isAuth) {
+                    <li ngbNavItem="notice"> <a ngbNavLink routerLink="notice"> Notices </a> </li>
+                  }
+
+                  @if (!isAuth) {
+                      <li ngbNavItem="login"> <a ngbNavLink routerLink="login"> Sign in </a> </li>
+                  }
+                </ul>
+
+                @if (isAuth) {
+                  <button class="logout-button" (click)="onLogout()"> Sign out </button>
+                }
+            </div>
         </div>
-      }
     </div>
-  </div>
 </nav>

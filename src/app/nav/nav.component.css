@@ -1,53 +1,103 @@
 .navbar {
-    padding: 1rem 2rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding: 1rem;
     background: var(--surface);
     border-bottom: 1px solid #e5e7eb;
 }
 
-.navbar .nav {
-    gap: var(--space-2);
+.navbar-brand {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
 }
 
-.navbar-brand {
-    font-weight: 700;
-    font-size: 1.3rem;
+.navbar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 
 .navbar .nav-link {
+    border-radius: 12px;
+    padding: .75rem 1rem;
     color: var(--text-primary);
-    padding: 0.6rem 1rem;
-    border-radius: 10px;
-    transition: background-color 180ms ease;
+    transition: background-color .2s;
 }
 
 .navbar .nav-link:hover {
-    background-color: var(--surface-hover);
+    background: var(--surface-hover);
 }
 
 .navbar .nav-link.active {
-    background-color: var(--surface-active);
+    background: var(--surface-active);
+}
+
+.navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+    border-radius: 12px;
+    color: var(--text-primary);
+    transition: background-color .2s ease, box-shadow .2s ease;
+}
+
+.navbar-toggler:hover {
+    background: var(--surface-hover);
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.navbar-toggler svg {
+    width: 22px;
+    height: 22px;
 }
 
 .logout-button {
-    background: transparent;
+    width: 100%;
     border: none;
-    padding: 0.6rem 1rem;
-    border-radius: 10px;
-
-    font: inherit;
-    color: inherit;
-
-    cursor: pointer;
-
-    transition: background-color 180ms ease, color 180ms ease;
+    background: transparent;
+    border-radius: 12px;
+    padding: .75rem 1rem;
+    text-align: left;
+    transition: background-color .2s;
 }
 
 .logout-button:hover {
-    background-color: var(--surface-hover);
+    background: var(--surface-hover);
 }
 
-.logout-button:focus-visible {
-    outline: 2px solid var(--border);
-    outline-offset: 2px;
+@media (min-width: 992px) {
+    .navbar {
+        padding: 1rem 2rem;
+    }
+
+    .navbar-content {
+        width: 100%;
+        margin-top: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav {
+        flex-direction: row;
+        gap: .5rem;
+    }
+
+    .logout-button {
+        width: auto;
+        text-align: center;
+    }
 }
