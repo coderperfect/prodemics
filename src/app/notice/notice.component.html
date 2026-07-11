@@ -1,35 +1,37 @@
 @if (!outlet.isActivated) {
-<main class="notice-page">
-    <section class="notice-list">
-        <header class="page-header">
-            <div>
-                <h1>Notices</h1>
-                <p>Latest announcements and updates.</p>
-            </div>
+    <main class="notice-page">
+        <section class="notice-list">
+            <header class="page-header">
+                <div class="page-header-content">
+                    <h1>Notices</h1>
+                    <p>Latest announcements and updates.</p>
+                </div>
 
-            @if (showAdd()) {
-                <button class="add-notice-btn" (click)="router.navigate(['/notice/add'])">
-                    <svg lucidePlus></svg> Add Notice </button>
-            }
-        </header>
+                @if (showAdd()) {
+                    <button class="add-notice-btn" (click)="router.navigate(['/notice/add'])">
+                        <svg lucidePlus></svg>
+                        Add Notice
+                    </button>
+                }
+            </header>
 
-        <section class="notice-items">
-            @for (notice of notices(); track notice.id) {
-                <app-notice-summary [notice]="notice" 
-                  (noticeClick)="onNoticeSummaryClick($event)"> </app-notice-summary>
-            } @empty {
-                <p class="empty-state">No notices available.</p>
-            }
+            <section class="notice-items">
+                @for (notice of notices(); track notice.id) {
+                    <app-notice-summary [notice]="notice"
+                        (noticeClick)="onNoticeSummaryClick($event)">
+                    </app-notice-summary>
+                } @empty {
+                    <p class="empty-state"> No notices available. </p>
+
+                }
+            </section>
+
+            <ngb-pagination class="pagination-container" [collectionSize]="pageSize() * totalPages()"
+                [pageSize]="pageSize()" [page]="currentPage()"
+                (pageChange)="onPageChange($event)">
+            </ngb-pagination>
         </section>
-
-        <ngb-pagination
-            class="pagination-container" [collectionSize]="pageSize() * totalPages()"
-            [pageSize]="pageSize()" [page]="currentPage()"
-            (pageChange)="onPageChange($event)">
-        </ngb-pagination>
-
-    </section>
-</main>
+    </main>
 }
 
 <router-outlet #outlet="outlet"></router-outlet>
