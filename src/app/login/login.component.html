@@ -6,8 +6,8 @@
         </header>
 
         <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        @if (isError) {
-          <div class="alert alert-danger" role="alert">Username/Password is incorrect!</div>
+        @if (errorMessage()) {
+          <div class="alert alert-danger" role="alert"> {{ errorMessage() }} </div>
         }
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
@@ -17,10 +17,10 @@
           <label for="password" class="form-label">Password</label>
           <input type="password" ngModel name="password" class="form-control" />
         </div>
-        @if (!isLoggingIn) {
+        @if (!isLoggingIn()) {
           <button type="submit" class="btn btn-primary">Sign in</button>
         }
-        @if (isLoggingIn) {
+        @if (isLoggingIn()) {
           <button class="btn btn-primary" type="button" disabled>
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Signing in...
