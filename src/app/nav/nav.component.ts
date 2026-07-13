@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, UrlSegment, RouterLink } from '@angular/router';
 import { filter, map, Observable, Subscription } from 'rxjs';
 import { 
@@ -6,7 +6,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap/nav';
 import {
   LucideMenu, LucideGraduationCap, LucideHouse, LucideMegaphone, LucideUser, LucideSettings,
-  LucideLogOut
+  LucideLogIn, LucideLogOut
 } from '@lucide/angular';
 
 import { LoginService } from '../login/login.service';
@@ -19,7 +19,7 @@ import { LoginService } from '../login/login.service';
     imports: [
     RouterLink, NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase, LucideMenu,
     LucideGraduationCap, LucideHouse, LucideMegaphone, LucideUser, LucideSettings,
-    LucideLogOut
+    LucideLogIn, LucideLogOut
   ]
 })
 export class NavComponent implements OnInit, OnDestroy {
@@ -28,6 +28,9 @@ export class NavComponent implements OnInit, OnDestroy {
   public authorities = '';
   private loggedInUserSub = new Subscription();
   public currentNavItemId = '';
+
+  readonly navDrawerOpen = signal(false);
+  readonly userDrawerOpen = signal(false);
 
   constructor(
     public route: ActivatedRoute,
@@ -60,6 +63,21 @@ export class NavComponent implements OnInit, OnDestroy {
       .split(',')
       .map(role => roleMap[role.trim()] ?? role)
       .join(' • ');
+  }
+
+  toggleNavDrawer() {
+    this.navDrawerOpen.update(open => !open);
+    this.userDrawerOpen.set(false);
+  }
+
+  toggleUserDrawer() {
+    this.userDrawerOpen.update(open => !open);
+    this.navDrawerOpen.set(false);
+  }
+
+  closeDrawers() {
+    this.navDrawerOpen.set(false);
+    this.userDrawerOpen.set(false);
   }
 
   ngOnInit(): void {

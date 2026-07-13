@@ -1,35 +1,33 @@
 <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
+    @if (navDrawerOpen()) {
+        <div
+            class="drawer-backdrop"
+            (click)="toggleNavDrawer()">
+        </div>
+    }
 
-        <a class="navbar-brand" routerLink="">
-            <svg lucideGraduationCap></svg>
-            <span>Prodemics</span>
-        </a>
+    @if (userDrawerOpen()) {
+        <div
+            class="drawer-backdrop"
+            (click)="toggleUserDrawer()">
+        </div>
+    }
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <svg lucideMenu></svg>
-        </button>
+    <div class="container-fluid navbar-shell">
+        <div class="navbar-start">
+            <button class="navbar-toggler" type="button" (click)="toggleNavDrawer()"
+                aria-label="Toggle navigation">
+                <svg lucideMenu></svg>
+            </button>
+            
+            <a class="navbar-brand" routerLink="">
+                <svg lucideGraduationCap></svg>
+                <span>Prodemics</span>
+            </a>
+        </div>
 
-        <div class="collapse navbar-collapse" id="navbarMenu">
+        <div class="drawer left-drawer" [class.drawer-open]="navDrawerOpen()">
             <div class="navbar-content">
-                @if (isAuth) {
-                    <section class="user-card">
-                        <div class="avatar">
-                            {{ initials }}
-                        </div>
-                        <div class="user-info">
-                            <div class="username">
-                                {{ username }}
-                            </div>
-                            <div class="role">
-                                {{ displayRole }}
-                            </div>
-                        </div>
-                    </section>
-                }
-
                 <ul ngbNav [activeId]="currentNavItemId" class="nav nav-pills">
                     @if (isAuth) {
                         <li ngbNavItem="home">
@@ -73,14 +71,42 @@
                         </li>
                     }
                 </ul>
-
-                @if (isAuth) {
-                    <button class="logout-button" (click)="onLogout()">
-                        <svg lucideLogOut></svg>
-                        <span>Sign out</span>
-                    </button>
-                }
             </div>
         </div>
+
+        <div class="drawer right-drawer" [class.drawer-open]="userDrawerOpen()">
+            <div class="navbar-content">
+                <div class="user-actions">
+                    @if (isAuth) {
+                        <section class="user-card">
+                            <div class="avatar">
+                                {{ initials }}
+                            </div>
+                            <div class="user-info">
+                                <div class="username">
+                                    {{ username }}
+                                </div>
+                                <div class="role">
+                                    {{ displayRole }}
+                                </div>
+                            </div>
+                        </section>
+                    }
+
+                    @if (isAuth) {
+                        <button class="logout-button" (click)="onLogout()">
+                            <svg lucideLogOut></svg>
+                            <span>Sign out</span>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (isAuth) {
+            <button class="avatar-button" type="button" (click)="toggleUserDrawer()">
+                <div class="avatar"> {{ initials }} </div>
+            </button>
+        }
     </div>
 </nav>
