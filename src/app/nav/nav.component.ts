@@ -4,7 +4,10 @@ import { filter, map, Observable, Subscription } from 'rxjs';
 import { 
   NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase 
 } from '@ng-bootstrap/ng-bootstrap/nav';
-import { LucideMenu } from '@lucide/angular';
+import {
+  LucideMenu, LucideGraduationCap, LucideHouse, LucideMegaphone, LucideUser, LucideSettings,
+  LucideLogOut
+} from '@lucide/angular';
 
 import { LoginService } from '../login/login.service';
 
@@ -14,11 +17,15 @@ import { LoginService } from '../login/login.service';
     styleUrls: ['./nav.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
-      RouterLink, NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase, LucideMenu
-    ]
+    RouterLink, NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase, LucideMenu,
+    LucideGraduationCap, LucideHouse, LucideMegaphone, LucideUser, LucideSettings,
+    LucideLogOut
+  ]
 })
 export class NavComponent implements OnInit, OnDestroy {
   public isAuth = false;
+  public username = '';
+  public authorities = '';
   private loggedInUserSub = new Subscription();
   public currentNavItemId = '';
 
@@ -28,10 +35,39 @@ export class NavComponent implements OnInit, OnDestroy {
     private loginService: LoginService
   ) {}
 
+  get initials(): string {
+    if (!this.username) return '';
+
+    return this.username
+      .split(' ')
+      .map(name => name[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+  }
+
+  get displayRole(): string {
+    if (!this.authorities) {
+      return '';
+    }
+
+    const roleMap: Record<string, string> = {
+      student: 'Student',
+      admin: 'Administrator'
+    };
+
+    return this.authorities
+      .split(',')
+      .map(role => roleMap[role.trim()] ?? role)
+      .join(' • ');
+  }
+
   ngOnInit(): void {
     this.loggedInUserSub = this.loginService.loggedInUser.subscribe(
       (loggedInUser) => {
         this.isAuth = !!loggedInUser.username;
+        this.username = String(loggedInUser.username);
+        this.authorities = String(loggedInUser.authorities);
       }
     );
 
