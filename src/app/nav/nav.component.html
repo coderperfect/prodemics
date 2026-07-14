@@ -87,7 +87,7 @@
                     }
 
                     @if (isAuth) {
-                        <button class="user-action-button" (click)="onLogout()">
+                        <button class="user-action-button" (click)="onLogout(); toggleUserDrawer()">
                             <svg lucideLogOut></svg>
                             <span>Sign out</span>
                         </button>

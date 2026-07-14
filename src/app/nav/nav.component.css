@@ -241,29 +241,34 @@
         padding: 1rem 2rem;
     }
 
-    .drawer {
-        position: static;
-        width: auto;
-        height: auto;
-        padding: 0;
-        transform: none;
-        box-shadow: none;
-        overflow: visible;
-    }
-
     .drawer-open {
         transform: none;
     }
 
     .left-drawer {
+        position: relative;
+        z-index: 0;
         flex: 1;
+
+        width: auto;
+        height: auto;
+        padding: 0;
+
+        transform: none;
+        box-shadow: none;
+        overflow: visible;
     }
 
     .right-drawer {
-        margin-left: auto;
+        position: fixed;
+        z-index: 1050;
     }
 
-    .navbar-content {
+    .drawer-backdrop {
+        z-index: 1040;
+    }
+
+    .left-drawer .navbar-content {
         width: 100%;
         margin-top: 0;
         flex-direction: row;
@@ -271,28 +276,8 @@
         justify-content: space-between;
     }
 
-    .avatar-button {
-        display: none;
-    }
-
-    .user-actions {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: .75rem;
-    }
-
-    .user-card {
-        padding: 0;
-        border: none;
-    }
-
     .nav {
         flex-direction: row;
         align-items: center;
-    }
-
-    .user-action-button {
-        width: auto;
     }
 }
