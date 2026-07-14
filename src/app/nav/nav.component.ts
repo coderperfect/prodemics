@@ -65,21 +65,6 @@ export class NavComponent implements OnInit, OnDestroy {
       .join(' • ');
   }
 
-  toggleNavDrawer() {
-    this.navDrawerOpen.update(open => !open);
-    this.userDrawerOpen.set(false);
-  }
-
-  toggleUserDrawer() {
-    this.userDrawerOpen.update(open => !open);
-    this.navDrawerOpen.set(false);
-  }
-
-  closeDrawers() {
-    this.navDrawerOpen.set(false);
-    this.userDrawerOpen.set(false);
-  }
-
   ngOnInit(): void {
     this.loggedInUserSub = this.loginService.loggedInUser.subscribe(
       (loggedInUser) => {
@@ -124,5 +109,20 @@ export class NavComponent implements OnInit, OnDestroy {
     this.loginService.loggedInUser.next({ username: '', authorities: '' });
 
     this.router.navigate(['/login']);
+  }
+
+  toggleNavDrawer() {
+    this.navDrawerOpen.update(open => !open);
+    this.userDrawerOpen.set(false);
+  }
+
+  toggleUserDrawer() {
+    this.userDrawerOpen.update(open => !open);
+    this.navDrawerOpen.set(false);
+  }
+
+  closeDrawers() {
+    this.navDrawerOpen.set(false);
+    this.userDrawerOpen.set(false);
   }
 }
