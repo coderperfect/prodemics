@@ -29,6 +29,11 @@
         <div class="drawer left-drawer" [class.drawer-open]="navDrawerOpen()">
             <div class="navbar-content">
                 <ul ngbNav [activeId]="currentNavItemId" class="nav nav-pills">
+                    <a class="navbar-brand" routerLink="">
+                        <svg lucideGraduationCap></svg>
+                        <span>Prodemics</span>
+                    </a>
+                    
                     @if (isAuth) {
                         <li ngbNavItem="home">
                             <a ngbNavLink routerLink="">

@@ -41,6 +41,12 @@
     }
 }
 
+.left-drawer .navbar-brand {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
 .left-drawer.drawer-open {
     transform: translateX(0);
 }
@@ -239,6 +245,10 @@
 @media (min-width: 992px) {
     .navbar {
         padding: 1rem 2rem;
+    }
+
+    .left-drawer .navbar-brand {
+        display: none;
     }
 
     .drawer-open {
