@@ -188,7 +188,7 @@
 }
 
 .navbar .nav-link,
-.logout-button {
+.user-action-button {
     display: flex;
     align-items: center;
     gap: .75rem;
@@ -208,7 +208,7 @@
 }
 
 .navbar .nav-link:hover,
-.logout-button:hover {
+.user-action-button:hover {
     background: var(--surface-hover);
 }
 
@@ -217,19 +217,20 @@
 }
 
 .navbar .nav-link svg,
-.logout-button svg {
+.user-action-button svg {
     width: 18px;
     height: 18px;
 
     flex-shrink: 0;
 }
 
-.navbar .nav-link.disabled {
+.navbar .nav-link.disabled,
+.user-action-button.disabled {
     opacity: .55;
     pointer-events: none;
 }
 
-.logout-button {
+.user-action-button {
     cursor: pointer;
 }
 
@@ -291,7 +292,7 @@
         align-items: center;
     }
 
-    .logout-button {
+    .user-action-button {
         width: auto;
     }
 }
