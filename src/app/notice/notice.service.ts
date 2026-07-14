@@ -24,10 +24,10 @@ export class NoticeService {
 
   getNotices(pageNumber?: number) {
     if(!pageNumber)
-      return this.httpClient.get<NoticesResponse>(`${environment.HOST_URL}/notice/list`);
+      return this.httpClient.get<NoticesResponse>(`${environment.HOST_URL}/notice`);
     
     return this.httpClient.get<NoticesResponse>(
-      `${environment.HOST_URL}/notice/list?pageNumber=${pageNumber}`
+      `${environment.HOST_URL}/notice?pageNumber=${pageNumber}`
     );
   }
 
@@ -37,7 +37,7 @@ export class NoticeService {
 
   addNotice(title: string, description: string, createdAt: string) {
     return this.httpClient.post<Notice>(
-      `${environment.HOST_URL}/admin/notice/add`, {title, description, createdAt}
+      `${environment.HOST_URL}/notice`, {title, description, createdAt}
     );
   }
 }
