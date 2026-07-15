@@ -109,49 +109,74 @@
 }
 
 .delete-modal {
-    padding: 2rem;
+    padding: 3rem;
     text-align: center;
+}
+
+.modal-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .modal-title {
     margin: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
+
     color: var(--text-primary);
+
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -.03em;
 }
 
 .modal-description {
-    margin: 1rem 0 .5rem;
-    line-height: 1.7;
+    max-width: 360px;
+
+    margin:
+        1.5rem auto
+        .75rem;
+
     color: var(--text-secondary);
+
+    line-height: 1.8;
+}
+
+.modal-description strong {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .modal-warning {
     margin: 0;
+
+    color: #64748b;
+
     font-size: .95rem;
-    font-weight: 500;
-    color: #dc2626;
 }
 
 .modal-actions {
     display: flex;
-    gap: .75rem;
-    margin-top: 2rem;
+    gap: 1rem;
+
+    margin-top: 2.5rem;
 }
 
-.modal-actions .btn {
+.modal-actions button {
     flex: 1;
-    min-height: 48px;
+
+    height: 52px;
 
     border: none;
-    border-radius: 14px;
+    border-radius: 999px;
 
     font-weight: 600;
 
-    transition: transform .2s ease, box-shadow .2s ease;
+    transition:
+        transform .2s ease,
+        background-color .2s ease,
+        box-shadow .2s ease;
 }
 
-.modal-actions .btn:hover {
+.modal-actions button:hover {
     transform: translateY(-1px);
 }
 
@@ -160,9 +185,17 @@
     color: var(--text-primary);
 }
 
-.btn-confirm-delete {
-    background: rgba(239,68,68,.1);
-    color: #dc2626;
+.btn-cancel:hover {
+    background: #e2e8f0;
+}
+
+.btn-delete {
+    background: rgba(239, 68, 68, .08);
+    color: #ef4444;
+}
+
+.btn-delete:hover {
+    background: rgba(239, 68, 68, .14);
 }
 
 /* ---------------- Desktop ---------------- */

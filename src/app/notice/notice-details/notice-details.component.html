@@ -28,12 +28,17 @@
 
     <ng-template #deleteNoticeModal let-modal>
         <div class="delete-modal">
+
+            <div class="modal-icon">
+                🗑️
+            </div>
+
             <h2 class="modal-title">
                 Delete Notice
             </h2>
 
             <p class="modal-description">
-                Are you sure you want to delete
+                Are you sure you want to permanently delete
                 <strong>"{{ notice().title }}"</strong>?
             </p>
 
@@ -43,17 +48,20 @@
 
             <div class="modal-actions">
                 <button
-                    class="btn btn-cancel"
+                    type="button"
+                    class="btn-cancel"
                     (click)="modal.dismiss()">
                     Cancel
                 </button>
 
                 <button
-                    class="btn btn-confirm-delete"
+                    type="button"
+                    class="btn-delete"
                     (click)="confirmDelete(modal)">
                     Delete
                 </button>
             </div>
+
         </div>
     </ng-template>
 </main>
