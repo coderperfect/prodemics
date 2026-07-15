@@ -18,33 +18,42 @@
 
     @if (isAdmin()) {
         <section class="notice-actions">
-            <button class="btn btn-primary" (click)="onEdit()"> Edit Notice </button>
+            <button class="btn btn-edit" (click)="onEdit()"> Edit Notice </button>
 
-            <button class="btn btn-danger" (click)="openDeleteModal(deleteNoticeModal)">
+            <button class="btn btn-delete" (click)="openDeleteModal(deleteNoticeModal)">
                 Delete Notice 
             </button>
         </section>
     }
 
     <ng-template #deleteNoticeModal let-modal>
-        <div class="modal-header">
-            <h5 class="modal-title">Delete Notice</h5>
-            <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
-        </div>
+        <div class="delete-modal">
+            <h2 class="modal-title">
+                Delete Notice
+            </h2>
 
-        <div class="modal-body">
-            <p>
+            <p class="modal-description">
                 Are you sure you want to delete
                 <strong>"{{ notice().title }}"</strong>?
             </p>
 
-            <p class="mb-0 text-danger"> This action cannot be undone. </p>
-        </div>
+            <p class="modal-warning">
+                This action cannot be undone.
+            </p>
 
-        <div class="modal-footer">
-            <button class="btn btn-secondary" (click)="modal.dismiss()"> Cancel </button>
+            <div class="modal-actions">
+                <button
+                    class="btn btn-cancel"
+                    (click)="modal.dismiss()">
+                    Cancel
+                </button>
 
-            <button class="btn btn-danger" (click)="confirmDelete(modal)"> Delete </button>
+                <button
+                    class="btn btn-confirm-delete"
+                    (click)="confirmDelete(modal)">
+                    Delete
+                </button>
+            </div>
         </div>
     </ng-template>
 </main>

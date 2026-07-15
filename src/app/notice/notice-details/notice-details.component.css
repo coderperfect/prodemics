@@ -77,45 +77,92 @@
 }
 
 .notice-actions .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 48px;
-    border-radius: 12px;
+    min-height: 52px;
+    border-radius: 16px;
+    border: none;
     font-weight: 600;
-    transition: transform .2s ease, box-shadow .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
 }
 
 .notice-actions .btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(15,23,42,.12);
 }
 
-.notice-actions .btn-danger {
-    border: none;
+.btn-edit {
+    background: white;
+    color: var(--text-primary);
+
+    box-shadow: 0 1px 2px rgba(15,23,42,.05), 0 8px 24px rgba(15,23,42,.06);
 }
 
-.modal-header {
-    border-bottom: 1px solid var(--border);
+.btn-edit:hover {
+    background: #f8fafc;
+}
+
+.btn-delete {
+    background: rgba(239,68,68,.08);
+    color: #dc2626;
+}
+
+.btn-delete:hover {
+    background: rgba(239,68,68,.12);
+}
+
+.delete-modal {
+    padding: 2rem;
+    text-align: center;
 }
 
 .modal-title {
+    margin: 0;
+    font-size: 1.5rem;
     font-weight: 700;
+    color: var(--text-primary);
 }
 
-.modal-body {
+.modal-description {
+    margin: 1rem 0 .5rem;
     line-height: 1.7;
     color: var(--text-secondary);
 }
 
-.modal-footer {
-    border-top: 1px solid var(--border);
+.modal-warning {
+    margin: 0;
+    font-size: .95rem;
+    font-weight: 500;
+    color: #dc2626;
 }
 
-.modal-footer .btn {
-    min-width: 100px;
-    border-radius: 10px;
+.modal-actions {
+    display: flex;
+    gap: .75rem;
+    margin-top: 2rem;
+}
+
+.modal-actions .btn {
+    flex: 1;
+    min-height: 48px;
+
+    border: none;
+    border-radius: 14px;
+
+    font-weight: 600;
+
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.modal-actions .btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-cancel {
+    background: #f1f5f9;
+    color: var(--text-primary);
+}
+
+.btn-confirm-delete {
+    background: rgba(239,68,68,.1);
+    color: #dc2626;
 }
 
 /* ---------------- Desktop ---------------- */
