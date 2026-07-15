@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { LucideArrowLeft, LucideMegaphone } from '@lucide/angular';
 import { LoginService } from '../../login/login.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '../../toast-container/toast.service';
 
 interface Notice {
   id: number;
@@ -34,7 +35,8 @@ export class NoticeDetailsComponent implements OnInit {
     private router: Router,
     private noticeService: NoticeService,
     private loginService: LoginService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -49,26 +51,28 @@ export class NoticeDetailsComponent implements OnInit {
 
   onEdit() {
     this.router.navigate(
-        ['/notice', this.notice().id, 'edit']
+      ['/notice', this.notice().id, 'edit']
     );
   }
 
   openDeleteModal(content: any) {
-      this.modalService.open(content, {
-          centered: true
-      });
+    this.modalService.open(content, {
+      centered: true
+    });
   }
 
   confirmDelete(modal: any) {
-      this.noticeService.deleteNotice(this.notice().id)
-          .subscribe(() => {
-              modal.close();
+    this.noticeService.deleteNotice(this.notice().id)
+      .subscribe(() => {
+        modal.close();
 
-              this.noticeService.noticeRefresh.update(
-                  value => value + 1
-              );
+        this.noticeService.noticeRefresh.update(
+          value => value + 1
+        );
 
-              this.router.navigate(['/notice']);
-          });
+        this.toastService.success("Notice deleted successfully")
+
+        this.router.navigate(['/notice']);
+      });
   }
 }

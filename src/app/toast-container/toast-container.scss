@@ -1,0 +1,11 @@
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+
+    z-index: 2000;
+}

@@ -5,6 +5,7 @@ import { NgbAlert } from '@ng-bootstrap/ng-bootstrap/alert';
 import { NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap/datepicker';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LucideArrowLeft } from '@lucide/angular';
+import { ToastService } from '../../toast-container/toast.service';
 
 @Component({
     selector: 'app-notice-add',
@@ -16,7 +17,6 @@ import { LucideArrowLeft } from '@lucide/angular';
 export class NoticeFormComponent implements OnInit {
   readonly isError = signal(false);
   readonly isSubmitting = signal(false);
-  readonly isAdded = signal(false);
   
   // Form values
   readonly title = signal('');
@@ -29,7 +29,8 @@ export class NoticeFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private noticeService: NoticeService
+    private noticeService: NoticeService,
+    private toastService: ToastService
   ) {}
 
   get backLink() {
@@ -65,7 +66,6 @@ export class NoticeFormComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.isSubmitting.set(true);
-    this.isAdded.set(false);
 
     const title = this.title();
     const description = this.description();
@@ -86,7 +86,9 @@ export class NoticeFormComponent implements OnInit {
         if (!!notice.id) {
           if (!this.isEditMode) form.reset();
 
-          this.isAdded.set(true);
+          if (!this.isEditMode) this.toastService.success('Notice published successfully');
+          else this.toastService.success('Notice updated successfully');
+          
           this.noticeService.noticeRefresh.update(value => value + 1);
 
           if (!this.isEditMode) this.router.navigate(['/notice']);
@@ -95,7 +97,6 @@ export class NoticeFormComponent implements OnInit {
       },
       error: (error) => {
         this.isSubmitting.set(false);
-        this.isAdded.set(false);
 
         if (!!error) this.isError.set(true);
       }

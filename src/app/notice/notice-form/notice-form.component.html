@@ -17,15 +17,6 @@
                 </ngb-alert>
             }
 
-            @if (isAdded()) {
-                <ngb-alert type="success" (closed)="isAdded.set(false)">
-                    {{ 
-                        isEditMode ? 'Notice updated successfully.' 
-                        : 'Notice published successfully.' 
-                    }}
-                </ngb-alert>
-            }
-
             <div class="mb-4">
                 <label class="form-label"> Title </label>
 
