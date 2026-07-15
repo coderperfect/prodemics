@@ -5,7 +5,7 @@
 
 /* ---------------- Mobile ---------------- */
 
-.notice-add-page {
+.notice-form-page {
     padding: 1.5rem 1rem;
 }
 
@@ -106,7 +106,7 @@ textarea.ng-invalid.ng-touched {
 /* ---------------- Desktop ---------------- */
 
 @media (min-width:768px) {
-    .notice-add-page {
+    .notice-form-page {
         max-width: 760px;
         margin: 0 auto;
         padding: 3rem 2rem;

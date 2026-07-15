@@ -1,0 +1,79 @@
+<main class="notice-form-page">
+    <a class="back-link" [routerLink]="backLink">
+        <svg lucideArrowLeft></svg>
+        {{ backText }}
+    </a>
+
+    <section class="notice-form-card">
+        <header class="page-header">
+            <h1>{{ isEditMode ? 'Edit Notice' : 'Add Notice' }}</h1>
+            <p>Publish an announcement for all students.</p>
+        </header>
+
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            @if (isError()) {
+                <ngb-alert type="danger" (closed)="isError.set(false)"> 
+                  Something went wrong. 
+                </ngb-alert>
+            }
+
+            @if (isAdded()) {
+                <ngb-alert type="success" (closed)="isAdded.set(false)">
+                    {{ 
+                        isEditMode ? 'Notice updated successfully.' 
+                        : 'Notice published successfully.' 
+                    }}
+                </ngb-alert>
+            }
+
+            <div class="mb-4">
+                <label class="form-label"> Title </label>
+
+                <input type="text" [ngModel]="title()" (ngModelChange)="title.set($event)" 
+                    name="title" class="form-control" required #titleModel="ngModel">
+
+                @if (!titleModel.valid && titleModel.touched) {
+                    <span class="help-block"> Title is required. </span>
+                }
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label"> Notice Date </label>
+
+                <input type="text" [ngModel]="createdAt()" 
+                    (ngModelChange)="createdAt.set($event)" name="createdAt" 
+                    class="form-control" required ngbDatepicker #d="ngbDatepicker" 
+                    (click)="d.toggle()" #createdAtModel="ngModel">
+
+                @if (!createdAtModel.valid && createdAtModel.touched) {
+                    <span class="help-block"> Notice date is required. </span>
+                }
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label"> Description </label>
+
+                <textarea [ngModel]="description()" (ngModelChange)="description.set($event)" 
+                    name="description" class="form-control" rows="8" required 
+                    #descriptionModel="ngModel"> </textarea>
+
+                @if (!descriptionModel.valid && descriptionModel.touched) {
+                    <span class="help-block"> Description is required. </span>
+                }
+            </div>
+
+            @if (!isSubmitting()) {
+                <button type="submit" class="btn btn-primary" [disabled]="!f.valid || !f.touched">
+                    {{ isEditMode ? 'Update Notice' : 'Add Notice' }}
+                </button>
+            }
+
+            @if (isSubmitting()) {
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm"></span>
+                    {{ isEditMode ? 'Updating...' : 'Publishing...' }}
+                </button>
+            }
+        </form>
+    </section>
+</main>

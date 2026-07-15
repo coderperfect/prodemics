@@ -40,4 +40,16 @@ export class NoticeService {
       `${environment.HOST_URL}/notice`, {title, description, createdAt}
     );
   }
+
+  updateNotice(noticeId: number, title: string, description: string, createdAt: string) {
+    return this.httpClient.put<Notice>(
+      `${environment.HOST_URL}/notice/${noticeId}`, { title, description, createdAt }
+    );
+  }
+
+  deleteNotice(noticeId: number) {
+    return this.httpClient.delete(
+        `${environment.HOST_URL}/notice/${noticeId}`
+    );
+  }
 }

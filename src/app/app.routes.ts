@@ -3,7 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NoticeComponent } from './notice/notice.component';
 import { NoticeDetailsComponent } from './notice/notice-details/notice-details.component';
-import { NoticeAddComponent } from './notice/notice-add/notice-add.component';
+import { NoticeFormComponent } from './notice/notice-form/notice-form.component';
 import { authGuard } from './login/auth.guard';
 
 export const routes: Routes = [
@@ -19,7 +19,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'add',
-        component: NoticeAddComponent
+        component: NoticeFormComponent
+      },
+      {
+        path: ':id/edit',
+        component: NoticeFormComponent
       },
       {
         path: ':id',

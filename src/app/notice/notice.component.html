@@ -1,4 +1,4 @@
-@if (!outlet.isActivated) {
+@if (!isChildRouteActive()) {
     <main class="notice-page">
         <section class="notice-list">
             <header class="page-header">
@@ -34,4 +34,7 @@
     </main>
 }
 
-<router-outlet #outlet="outlet"></router-outlet>
+<router-outlet 
+    (activate)="isChildRouteActive.set(true)" 
+    (deactivate)="isChildRouteActive.set(false)">
+</router-outlet>

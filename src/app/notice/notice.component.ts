@@ -23,6 +23,8 @@ interface Notice {
     imports: [NoticeSummaryComponent, NgbPagination, RouterOutlet, LucidePlus]
 })
 export class NoticeComponent implements OnInit, OnDestroy {
+  readonly isChildRouteActive = signal(false);
+  
   readonly showAdd = signal(false);
   readonly notices = signal<Notice[]>([]);
   readonly pageSize = signal(5);
