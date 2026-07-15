@@ -33,9 +33,12 @@
         </div>
 
         <div class="modal-body">
-            Are you sure you want to delete this notice?
-            <br>
-            <strong>This action cannot be undone.</strong>
+            <p>
+                Are you sure you want to delete
+                <strong>"{{ notice().title }}"</strong>?
+            </p>
+
+            <p class="mb-0 text-danger"> This action cannot be undone. </p>
         </div>
 
         <div class="modal-footer">

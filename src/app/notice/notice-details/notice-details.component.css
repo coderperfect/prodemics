@@ -77,10 +77,45 @@
 }
 
 .notice-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    padding: .8rem 1rem;
+    min-height: 48px;
     border-radius: 12px;
-    font-weight: 500;
+    font-weight: 600;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.notice-actions .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(15,23,42,.12);
+}
+
+.notice-actions .btn-danger {
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-title {
+    font-weight: 700;
+}
+
+.modal-body {
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border);
+}
+
+.modal-footer .btn {
+    min-width: 100px;
+    border-radius: 10px;
 }
 
 /* ---------------- Desktop ---------------- */
