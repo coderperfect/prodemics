@@ -1,7 +1,25 @@
 <div class="toast-container">
     @for (toast of toastService.toasts(); track toast) {
-        <ngb-toast [class]="toast.classname" [delay]="toast.delay" [autohide]="true"
-            (hidden)="toastService.remove(toast)">
+        <ngb-toast [class]="toast.classname" [delay]="toast.delay ?? 5000"
+            [autohide]="true" (hidden)="toastService.remove(toast)">
+            <ng-template ngbToastHeader>
+                <div class="toast-header-content">
+                    @switch (toast.classname) {
+                        @case ('success') {
+                            <span class="toast-title"> Success </span>
+                        }
+
+                        @case ('danger') {
+                            <span class="toast-title"> Error </span>
+                        }
+
+                        @default {
+                            <span class="toast-title"> Information </span>
+                        }
+                    }
+                </div>
+            </ng-template>
+
             {{ toast.text }}
         </ngb-toast>
     }

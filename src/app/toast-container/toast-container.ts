@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+
 import { ToastService } from './toast.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { ToastService } from './toast.service';
   imports: [NgbToast],
   templateUrl: './toast-container.html',
   styleUrl: './toast-container.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class ToastContainer {
   constructor(public toastService: ToastService) {}
