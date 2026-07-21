@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { decodeToken, isTokenValid } from '../util/token';
 
 interface LoginResponse {
-  token: string;
+  accessToken: string;
 }
 
 interface User {
@@ -30,8 +30,8 @@ export class LoginService {
       this.decodedToken = decodeToken(localStorage.getItem('token')!);
 
       const user: User = {
-        username: this.decodedToken['username'],
-        authorities: this.decodedToken['authorities'],
+        username: this.decodedToken['sub'],
+        authorities: this.decodedToken['scope'],
       };
       this.loggedInUser.next(user);
     }
@@ -39,20 +39,14 @@ export class LoginService {
 
   login(username: string, password: string) {
     return this.httpClient
-      .get<LoginResponse>(`${environment.HOST_URL}/login`, {
-        headers: {
-          Authorization:
-            'Basic ' +
-            btoa(`${username}:${password}`)
-        },
-      })
+      .post<LoginResponse>(`${environment.HOST_URL}/api/auth/login`, { username, password })
       .pipe(
         tap((response) => {
-          localStorage.setItem('token', response.token);
-          this.decodedToken = decodeToken(response.token);
+          localStorage.setItem('token', response.accessToken);
+          this.decodedToken = decodeToken(response.accessToken);
           const user: User = {
-            username: this.decodedToken['username'],
-            authorities: this.decodedToken['authorities'],
+            username: this.decodedToken['sub'],
+            authorities: this.decodedToken['scope'],
           };
           this.loggedInUser.next(user);
         })

@@ -59,8 +59,11 @@ export class NavComponent implements OnInit, OnDestroy {
       admin: 'Administrator'
     };
 
+    const hiddenRoles = ['FACTOR_PASSWORD'];
+
     return this.authorities
-      .split(',')
+      .split(' ')
+      .filter(role => !hiddenRoles.includes(role))
       .map(role => roleMap[role.trim()] ?? role)
       .join(' • ');
   }

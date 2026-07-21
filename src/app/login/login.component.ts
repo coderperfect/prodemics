@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.loginCred.username, this.loginCred.password).subscribe({next: response => {
       this.isLoggingIn.set(false);
-      if(response.token)
+      if(response.accessToken)
         this.router.navigate(['']);
     },
     error: (error: HttpErrorResponse) => {

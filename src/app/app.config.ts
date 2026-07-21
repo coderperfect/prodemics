@@ -7,15 +7,14 @@ import {
 
 import {
   provideHttpClient,
-  HTTP_INTERCEPTORS,
-  withInterceptorsFromDi,
+  withInterceptors,
   withXhr
 } from '@angular/common/http';
 
 import { provideRouter } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthInterceptor } from './login/auth-interceptor.service';
+import { authInterceptor } from './login/auth-interceptor.service';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -28,14 +27,9 @@ export const appConfig: ApplicationConfig = {
       NgbModule,
       NgbPaginationModule
     ),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
     provideHttpClient(
       withXhr(),
-      withInterceptorsFromDi()
+      withInterceptors([authInterceptor])
     )
   ]
 };
