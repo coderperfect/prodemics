@@ -31,12 +31,12 @@
             <div class="mb-4">
                 <label class="form-label"> Notice Date </label>
 
-                <input type="text" [ngModel]="createdAt()" 
-                    (ngModelChange)="createdAt.set($event)" name="createdAt" 
+                <input type="text" [ngModel]="noticeDate()" 
+                    (ngModelChange)="noticeDate.set($event)" name="noticeDate" 
                     class="form-control" required ngbDatepicker #d="ngbDatepicker" 
-                    (click)="d.toggle()" #createdAtModel="ngModel">
+                    (click)="d.toggle()" #noticeDateModel="ngModel">
 
-                @if (!createdAtModel.valid && createdAtModel.touched) {
+                @if (!noticeDateModel.valid && noticeDateModel.touched) {
                     <span class="help-block"> Notice date is required. </span>
                 }
             </div>

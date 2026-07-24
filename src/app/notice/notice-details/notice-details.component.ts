@@ -9,10 +9,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../toast-container/toast.service';
 
 interface Notice {
-  id: number;
-  title: string;
-  description: string;
-  createdAt: string;
+  id: number,
+  title: string,
+  noticeDate: string,
+  description: string
 }
 
 @Component({
@@ -24,7 +24,7 @@ interface Notice {
 })
 export class NoticeDetailsComponent implements OnInit {
   readonly noticeId = signal(0);
-  readonly notice = signal<Notice>({ id: 0, title: '', description: '', createdAt: '' });
+  readonly notice = signal<Notice>({ id: 0, title: '', noticeDate: '', description: '' });
 
   readonly isAdmin = computed(
     () => this.loginService.loggedInUser.value.authorities.toString().includes('admin')

@@ -4,9 +4,9 @@ import { LucideMegaphone } from '@lucide/angular';
 
 interface Notice {
   id: number,
-  title: string;
-  description: string;
-  createdAt: string;
+  title: string,
+  noticeDate: string,
+  description: string
 }
 
 @Component({
@@ -17,7 +17,7 @@ interface Notice {
     imports: [DatePipe, LucideMegaphone]
 })
 export class NoticeSummaryComponent implements OnInit {
-  @Input('notice') public noticeData: Notice = {id: 0, title: '', description: '', createdAt: ''};
+  @Input('notice') public noticeData: Notice = {id: 0, title: '', noticeDate: '', description: ''};
   @Output('noticeClick') noticeClickEvent = new EventEmitter<{id: number}>();
 
   constructor() { }

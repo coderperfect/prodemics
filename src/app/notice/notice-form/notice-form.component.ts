@@ -20,8 +20,8 @@ export class NoticeFormComponent implements OnInit {
   
   // Form values
   readonly title = signal('');
+  readonly noticeDate = signal<NgbDateStruct | null>(null);
   readonly description = signal('');
-  readonly createdAt = signal<NgbDateStruct | null>(null);
 
   public isEditMode = false;
   public noticeId = 0;
@@ -51,14 +51,15 @@ export class NoticeFormComponent implements OnInit {
         this.noticeService.getNotice(this.noticeId).subscribe({
           next: (notice) => {
             this.title.set(notice.title);
-            this.description.set(notice.description);
 
-            const date = new Date(notice.createdAt);
-            this.createdAt.set({
+            const date = new Date(notice.noticeDate);
+            this.noticeDate.set({
               year: date.getFullYear(),
               month: date.getMonth() + 1,
               day: date.getDate()
             });
+
+            this.description.set(notice.description);
           }
         });
     }
@@ -68,15 +69,15 @@ export class NoticeFormComponent implements OnInit {
     this.isSubmitting.set(true);
 
     const title = this.title();
-    const description = this.description();
-    const createdAt = (
-      this.createdAt()!.year + "-" + this.getTwoDigit(this.createdAt()!.month) + "-" 
-      + this.getTwoDigit(this.createdAt()!.day)
+    const noticeDate = (
+      this.noticeDate()!.year + "-" + this.getTwoDigit(this.noticeDate()!.month) + "-" 
+      + this.getTwoDigit(this.noticeDate()!.day)
     );
+    const description = this.description();
 
     const request = (this.isEditMode 
-      ? this.noticeService.updateNotice(this.noticeId, title, description, createdAt)
-      : this.noticeService.addNotice(title, description, createdAt)
+      ? this.noticeService.updateNotice(this.noticeId, title, noticeDate, description)
+      : this.noticeService.addNotice(title, noticeDate, description)
     );
 
     request.subscribe({

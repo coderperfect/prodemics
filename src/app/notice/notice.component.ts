@@ -10,17 +10,17 @@ import { LucidePlus } from '@lucide/angular';
 
 interface Notice {
   id: number,
-  title: string;
-  description: string;
-  createdAt: string;
+  title: string,
+  noticeDate: string,
+  description: string
 }
 
 @Component({
-    selector: 'app-notice',
-    templateUrl: './notice.component.html',
-    styleUrls: ['./notice.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NoticeSummaryComponent, NgbPagination, RouterOutlet, LucidePlus]
+  selector: 'app-notice',
+  templateUrl: './notice.component.html',
+  styleUrls: ['./notice.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [NoticeSummaryComponent, NgbPagination, RouterOutlet, LucidePlus]
 })
 export class NoticeComponent implements OnInit, OnDestroy {
   readonly isChildRouteActive = signal(false);
