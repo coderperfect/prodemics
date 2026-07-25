@@ -1,10 +1,13 @@
 import { Component, signal } from '@angular/core';
+
+import { LucidePlus } from '@lucide/angular';
+
 import { SchoolClass } from './school-class';
 import { SchoolClassService } from './school-class-service';
 
 @Component({
   selector: 'app-school-class-component',
-  imports: [],
+  imports: [LucidePlus],
   templateUrl: './school-class-component.html',
   styleUrl: './school-class-component.scss',
 })

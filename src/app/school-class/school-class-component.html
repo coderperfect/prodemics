@@ -1,14 +1,17 @@
 <main>
-    <header>
-        <div>
-            <h1>Classes</h1>
-            <p>Manage all classes in the school.</p>
-        </div>
-
-        <button (click)="addClass()"> Add Class </button>
-    </header>
-
     <section class="class-list">
+        <header>
+            <div>
+                <h1>Classes</h1>
+                <p>Manage all classes in the school.</p>
+            </div>
+
+            <button class="add-class-btn" (click)="addClass()">
+                <svg lucidePlus></svg>
+                Add Class
+            </button>
+        </header>
+
         @for (schoolClass of classes(); track schoolClass.id) {
             <article class="class-card">
                 <div>
