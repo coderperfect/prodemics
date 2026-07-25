@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import {LucideBookOpen, LucideCalendarDays, LucideClipboardCheck, LucideMegaphone} from '@lucide/angular';
+import { 
+  LucideBookOpen, LucideCalendarDays, LucideClipboardCheck, LucideMegaphone, LucideSchool
+} from '@lucide/angular';
 
 import { DashboardCard } from '../shared/dashboard-card/dashboard-card';
 
@@ -12,7 +14,7 @@ import { DashboardCard } from '../shared/dashboard-card/dashboard-card';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
       RouterLink, DashboardCard, LucideMegaphone, LucideClipboardCheck, LucideCalendarDays,
-      LucideBookOpen
+      LucideBookOpen, LucideSchool
     ]
 })
 export class HomeComponent implements OnInit {

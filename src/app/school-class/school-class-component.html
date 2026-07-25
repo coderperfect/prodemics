@@ -1,0 +1,23 @@
+<main>
+    <header>
+        <div>
+            <h1>Classes</h1>
+            <p>Manage all classes in the school.</p>
+        </div>
+
+        <button (click)="addClass()"> Add Class </button>
+    </header>
+
+    <section class="class-list">
+        @for (schoolClass of classes(); track schoolClass.id) {
+            <article class="class-card">
+                <div>
+                    <h2>{{ schoolClass.name }}</h2>
+                    <p>Academic Year {{ schoolClass.academicYear }}</p>
+                </div>
+
+                <div class="arrow"> → </div>
+            </article>
+        }
+    </section>
+</main>

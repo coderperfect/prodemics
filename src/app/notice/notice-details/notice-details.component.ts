@@ -51,7 +51,7 @@ export class NoticeDetailsComponent implements OnInit {
 
   onEdit() {
     this.router.navigate(
-      ['/notice', this.notice().id, 'edit']
+      ['/notices', this.notice().id, 'edit']
     );
   }
 
@@ -72,7 +72,7 @@ export class NoticeDetailsComponent implements OnInit {
 
         this.toastService.success("Notice deleted successfully")
 
-        this.router.navigate(['/notice']);
+        this.router.navigate(['/notices']);
       });
   }
 }

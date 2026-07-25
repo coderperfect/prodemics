@@ -1,15 +1,18 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, UrlSegment, RouterLink } from '@angular/router';
-import { filter, map, Observable, Subscription } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
+
 import { 
   NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase 
 } from '@ng-bootstrap/ng-bootstrap/nav';
+
 import {
-  LucideMenu, LucideGraduationCap, LucideHouse, LucideMegaphone, LucideUser, LucideSettings,
-  LucideLogIn, LucideLogOut
+  LucideMenu, LucideGraduationCap, LucideHouse, LucideSchool, LucideMegaphone, LucideUser, 
+  LucideSettings, LucideLogIn, LucideLogOut
 } from '@lucide/angular';
 
 import { LoginService } from '../login/login.service';
+import { NAV_ITEMS } from '../constants/nav-constants';
 
 @Component({
     selector: 'app-nav',
@@ -18,7 +21,7 @@ import { LoginService } from '../login/login.service';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     RouterLink, NgbNav, NgbNavItem, NgbNavItemRole, NgbNavLink, NgbNavLinkBase, LucideMenu,
-    LucideGraduationCap, LucideHouse, LucideMegaphone, LucideUser, LucideSettings,
+    LucideGraduationCap, LucideHouse, LucideSchool, LucideMegaphone, LucideUser, LucideSettings,
     LucideLogIn, LucideLogOut
   ]
 })
@@ -77,30 +80,12 @@ export class NavComponent implements OnInit, OnDestroy {
       }
     );
 
-    // For url we have to wait for NavigationEnd event and then only can subscribe to ActivatedRoute url
-    // That's why we need Router in addition to ActivatedRoute. For fragment however ActivatedRoute
-    // is enough as there is no router event there we are in the same route.
-    // The while loop is to get only the last part of the url.
     this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        map(() => this.route),
-        map((route) => {
-          while (route.firstChild) {
-            route = route.firstChild;
-          }
-          return route;
-        }),
-        map((route) => route.url)
-      )
-      .subscribe((url) =>
-        url.subscribe((curentUrl) => {
-          this.currentNavItemId = curentUrl.toString();
-          // As '' is not a supported ngbnNav activeId
-          if(this.currentNavItemId === '')
-            this.currentNavItemId = 'home';
-        })
-      );
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const match = NAV_ITEMS.find(item => this.router.url.startsWith(item.path));
+        this.currentNavItemId = match?.id ?? 'home';
+      });
   }
 
   ngOnDestroy(): void {

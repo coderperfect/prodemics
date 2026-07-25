@@ -65,7 +65,7 @@ export class NoticeComponent implements OnInit, OnDestroy {
   }
 
   onNoticeSummaryClick(event: {id: number}) {
-    this.router.navigate([`/notice/${event.id}`]);
+    this.router.navigate([`/notices/${event.id}`]);
   }
 
   onPageChange(page: number): void {

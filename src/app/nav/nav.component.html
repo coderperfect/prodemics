@@ -41,18 +41,19 @@
                                 <span>Home</span>
                             </a>
                         </li>
-                    }
-
-                    @if (isAuth) {
-                        <li ngbNavItem="notice">
-                            <a ngbNavLink routerLink="notice">
+                        <li ngbNavItem="classes">
+                            <a ngbNavLink routerLink="classes">
+                                <svg lucideSchool></svg>
+                                <span>Classes</span>
+                            </a>
+                        </li>
+                        <li ngbNavItem="notices">
+                            <a ngbNavLink routerLink="notices">
                                 <svg lucideMegaphone></svg>
                                 <span>Notices</span>
                             </a>
                         </li>
-                    }
-
-                    @if (!isAuth) {
+                    } @else {
                         <li ngbNavItem="login">
                             <a ngbNavLink routerLink="login">
                                 <svg lucideLogIn></svg>
@@ -89,9 +90,6 @@
                             <svg lucideSettings></svg>
                             <span>Settings</span>
                         </button>
-                    }
-
-                    @if (isAuth) {
                         <button class="user-action-button" (click)="onLogout(); toggleUserDrawer()">
                             <svg lucideLogOut></svg>
                             <span>Sign out</span>

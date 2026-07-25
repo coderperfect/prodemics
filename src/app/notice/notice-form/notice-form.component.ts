@@ -34,7 +34,7 @@ export class NoticeFormComponent implements OnInit {
   ) {}
 
   get backLink() {
-    return this.isEditMode ? ['/notice', this.noticeId] : ['/notice'];
+    return this.isEditMode ? ['/notices', this.noticeId] : ['/notices'];
   }
 
   get backText() {
@@ -92,8 +92,8 @@ export class NoticeFormComponent implements OnInit {
           
           this.noticeService.noticeRefresh.update(value => value + 1);
 
-          if (!this.isEditMode) this.router.navigate(['/notice']);
-          else this.router.navigate(['/notice', this.noticeId]);
+          if (!this.isEditMode) this.router.navigate(['/notices']);
+          else this.router.navigate(['/notices', this.noticeId]);
         }
       },
       error: (error) => {

@@ -5,6 +5,7 @@ import { NoticeComponent } from './notice/notice.component';
 import { NoticeDetailsComponent } from './notice/notice-details/notice-details.component';
 import { NoticeFormComponent } from './notice/notice-form/notice-form.component';
 import { authGuard } from './login/auth.guard';
+import { SchoolClassComponent } from './school-class/school-class-component';
 
 export const routes: Routes = [
   {
@@ -13,7 +14,12 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'notice',
+    path: '',
+    canActivate: [authGuard],
+    component: HomeComponent
+  },
+  {
+    path: 'notices',
     canActivate: [authGuard],
     component: NoticeComponent,
     children: [
@@ -32,8 +38,8 @@ export const routes: Routes = [
     ]
   },
   {
-    path: '',
+    path: 'classes',
     canActivate: [authGuard],
-    component: HomeComponent
+    component: SchoolClassComponent
   }
 ];
