@@ -1,0 +1,60 @@
+<main class="school-class-form-page">
+    <a class="back-link" [routerLink]="backLink">
+        <svg lucideArrowLeft></svg>
+        {{ backText }}
+    </a>
+
+    <section class="school-class-form-card">
+        <header class="page-header">
+            <h1>{{ isEditMode ? 'Edit Class' : 'Add Class' }}</h1>
+            <p>{{ isEditMode ? 'Update a class.' : 'Add a new class.' }}</p>
+        </header>
+
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            @if (isError()) {
+                <ngb-alert type="danger" (closed)="isError.set(false)"> 
+                  Something went wrong. 
+                </ngb-alert>
+            }
+
+            <div class="mb-4">
+                <label class="form-label"> Name </label>
+
+                <input type="text" [ngModel]="schoolClass().name" 
+                    (ngModelChange)="schoolClass.update((sc) => ({ ...sc, name: $event }))" 
+                    name="name" class="form-control" required #nameModel="ngModel">
+
+                @if (!nameModel.valid && nameModel.touched) {
+                    <span class="help-block"> Name is required. </span>
+                }
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label"> Academic Year </label>
+
+                <input type="number" [ngModel]="schoolClass().academicYear" 
+                    (ngModelChange)="schoolClass.update(
+                        (sc) => ({ ...sc, academicYear: $event }))" 
+                    name="academicYear" min="2000" max="2100" class="form-control" 
+                    required #academicYearModel="ngModel">
+
+                @if (!academicYearModel.valid && academicYearModel.touched) {
+                    <span class="help-block"> Academic year is required. </span>
+                }
+            </div>
+
+            @if (!isSubmitting()) {
+                <button type="submit" class="btn btn-primary" [disabled]="!f.valid || !f.touched">
+                    {{ isEditMode ? 'Update Class' : 'Add Class' }}
+                </button>
+            }
+
+            @if (isSubmitting()) {
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm"></span>
+                    {{ isEditMode ? 'Updating...' : 'Creating...' }}
+                </button>
+            }
+        </form>
+    </section>
+</main>

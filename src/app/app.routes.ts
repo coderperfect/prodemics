@@ -6,6 +6,7 @@ import { NoticeDetailsComponent } from './notice/notice-details/notice-details.c
 import { NoticeFormComponent } from './notice/notice-form/notice-form.component';
 import { authGuard } from './login/auth.guard';
 import { SchoolClassComponent } from './school-class/school-class-component';
+import { SchoolClassFormComponent } from './school-class/school-class-form-component/school-class-form-component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,16 @@ export const routes: Routes = [
   {
     path: 'classes',
     canActivate: [authGuard],
-    component: SchoolClassComponent
+    component: SchoolClassComponent,
+    children: [
+      {
+        path: 'add',
+        component: SchoolClassFormComponent
+      },
+      {
+        path: ':id/edit',
+        component: SchoolClassFormComponent
+      }
+    ]
   }
 ];

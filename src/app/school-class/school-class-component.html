@@ -1,26 +1,33 @@
-<main>
-    <section class="class-list">
-        <header>
-            <div>
-                <h1>Classes</h1>
-                <p>Manage all classes in the school.</p>
-            </div>
-
-            <button class="add-class-btn" (click)="addClass()">
-                <svg lucidePlus></svg>
-                Add Class
-            </button>
-        </header>
-
-        @for (schoolClass of classes(); track schoolClass.id) {
-            <article class="class-card">
+@if (!isChildRouteActive()) {
+    <main>
+        <section class="class-list">
+            <header>
                 <div>
-                    <h2>{{ schoolClass.name }}</h2>
-                    <p>Academic Year {{ schoolClass.academicYear }}</p>
+                    <h1>Classes</h1>
+                    <p>Manage all classes in the school.</p>
                 </div>
 
-                <div class="arrow"> → </div>
-            </article>
-        }
-    </section>
-</main>
+                <button class="add-class-btn" (click)="router.navigate(['/classes/add'])">
+                    <svg lucidePlus></svg>
+                    Add Class
+                </button>
+            </header>
+
+            @for (schoolClass of classes(); track schoolClass.id) {
+                <article class="class-card">
+                    <div>
+                        <h2>{{ schoolClass.name }}</h2>
+                        <p>Academic Year {{ schoolClass.academicYear }}</p>
+                    </div>
+
+                    <div class="arrow"> → </div>
+                </article>
+            }
+        </section>
+    </main>
+}
+
+<router-outlet 
+    (activate)="isChildRouteActive.set(true)" 
+    (deactivate)="isChildRouteActive.set(false)">
+</router-outlet>

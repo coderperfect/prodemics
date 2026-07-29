@@ -1,22 +1,30 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 
 import { LucidePlus } from '@lucide/angular';
 
 import { SchoolClass } from './school-class';
 import { SchoolClassService } from './school-class-service';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-school-class-component',
-  imports: [LucidePlus],
+  imports: [RouterOutlet, LucidePlus],
   templateUrl: './school-class-component.html',
   styleUrl: './school-class-component.scss',
 })
 export class SchoolClassComponent {
+  readonly isChildRouteActive = signal(false);
   readonly classes = signal<SchoolClass[]>([]);
   
   constructor(
+    public router: Router,
     private schoolClassService: SchoolClassService
-  ) {}
+  ) {
+    effect(() => {
+      this.schoolClassService.schoolClassRefresh();
+      this.loadClasses();
+    });
+  }
 
   ngOnInit() {
     this.loadClasses();
@@ -30,8 +38,7 @@ export class SchoolClassComponent {
     this.schoolClassService.create({
       id: null,
       name: '11-A',
-      academicYear: 2026,
-      createdAt: ''
+      academicYear: 2026
     }).subscribe(() => {this.loadClasses();});
   }
 

@@ -1,17 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { SchoolClass } from './school-class';
 import { environment } from '../../environments/environment';
 
 @Service()
 export class SchoolClassService {
     
+    readonly schoolClassRefresh = signal(0);
+
     private readonly classesApiBaseUrl = `${environment.HOST_URL}/api/classes`;
 
     private http = inject(HttpClient);
 
     getAll() {
         return this.http.get<SchoolClass[]>(this.classesApiBaseUrl);
+    }
+
+    get(id: number) {
+        return this.http.get<SchoolClass>(`${this.classesApiBaseUrl}/${id}`);
     }
 
     create(schoolClass: SchoolClass) {

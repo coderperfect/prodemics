@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, signal } from '@angular/core';
-import { NgForm, NgModel, FormsModule } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
+import { NgForm, FormsModule } from '@angular/forms';
 import { NoticeService } from '../notice.service';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap/alert';
 import { NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap/datepicker';
@@ -45,23 +45,23 @@ export class NoticeFormComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
-        this.isEditMode = true;
-        this.noticeId = Number(id);
+      this.isEditMode = true;
+      this.noticeId = Number(id);
 
-        this.noticeService.getNotice(this.noticeId).subscribe({
-          next: (notice) => {
-            this.title.set(notice.title);
+      this.noticeService.getNotice(this.noticeId).subscribe({
+        next: (notice) => {
+          this.title.set(notice.title);
 
-            const date = new Date(notice.noticeDate);
-            this.noticeDate.set({
-              year: date.getFullYear(),
-              month: date.getMonth() + 1,
-              day: date.getDate()
-            });
+          const date = new Date(notice.noticeDate);
+          this.noticeDate.set({
+            year: date.getFullYear(),
+            month: date.getMonth() + 1,
+            day: date.getDate()
+          });
 
-            this.description.set(notice.description);
-          }
-        });
+          this.description.set(notice.description);
+        }
+      });
     }
   }
 
